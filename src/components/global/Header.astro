@@ -2,29 +2,80 @@
 // src/components/global/Header.astro
 ---
 
-<header class="fixed top-0 w-full z-50 bg-brand-light/80 backdrop-blur-md border-b border-gray-200/50">
-  <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+<header class="fixed w-full top-0 z-50 bg-brand-light/95 backdrop-blur-md border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between relative z-50">
     
-    <a href="/" class="font-display font-bold text-2xl tracking-tighter text-brand-dark transition-opacity hover:opacity-80">
-      Firma<span class="text-brand-signal">.</span>
+    <a href="/" class="text-2xl font-display font-bold text-brand-dark tracking-tight">
+      Wiert<span class="text-brand-signal text-3xl">.</span>
     </a>
 
-    <nav class="hidden md:flex gap-8 font-medium text-sm">
-      <a href="/" class="hover:text-brand-signal transition-colors">Strona Główna</a>
-      <a href="/o-nas" class="hover:text-brand-signal transition-colors">O nas</a>
-      <a href="/realizacje" class="hover:text-brand-signal transition-colors">Realizacje</a>
-      <a href="/blog" class="hover:text-brand-signal transition-colors">Blog</a>
+    <nav class="hidden md:flex items-center gap-8 font-medium">
+      <a href="/" class="text-brand-dark hover:text-brand-signal transition-colors">Strona Główna</a>
+      <a href="/o-nas" class="text-brand-dark hover:text-brand-signal transition-colors">O nas</a>
+      <a href="/uslugi" class="text-brand-dark hover:text-brand-signal transition-colors">Usługi</a>
+      <a href="/realizacje" class="text-brand-dark hover:text-brand-signal transition-colors">Realizacje</a>
+      <a href="/blog" class="text-brand-dark hover:text-brand-signal transition-colors">Baza Wiedzy</a>
+      <a href="/kontakt" class="px-5 py-2.5 bg-brand-dark text-white rounded-lg hover:bg-brand-signal transition-colors font-bold">
+        Darmowa Wycena
+      </a>
     </nav>
 
-    <a href="/kontakt" class="hidden md:inline-flex bg-brand-dark text-brand-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-brand-signal transition-colors duration-300">
-      Darmowa Wycena
-    </a>
-    
-    <button class="md:hidden p-2 text-brand-dark cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    <button id="mobile-menu-button" class="md:hidden p-2 text-brand-dark focus:outline-none transition-transform active:scale-95" aria-label="Menu">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
 
   </div>
+
+  <nav id="mobile-menu" class="fixed top-20 left-0 w-full h-[calc(100vh-5rem)] bg-brand-light flex flex-col items-center justify-center gap-8 md:hidden transition-all duration-500 ease-out opacity-0 pointer-events-none translate-y-8 z-40">
+    <a href="/" class="mobile-link text-4xl font-display font-bold text-brand-dark hover:text-brand-signal transition-colors">Strona Główna</a>
+    <a href="/o-nas" class="mobile-link text-4xl font-display font-bold text-brand-dark hover:text-brand-signal transition-colors">O nas</a>
+    <a href="/uslugi" class="mobile-link text-4xl font-display font-bold text-brand-dark hover:text-brand-signal transition-colors">Usługi</a>
+    <a href="/realizacje" class="mobile-link text-4xl font-display font-bold text-brand-dark hover:text-brand-signal transition-colors">Realizacje</a>
+    <a href="/blog" class="mobile-link text-4xl font-display font-bold text-brand-dark hover:text-brand-signal transition-colors">Baza Wiedzy</a>
+    
+    <div class="mt-8">
+      <a href="/kontakt" class="mobile-link px-8 py-4 bg-brand-dark text-white rounded-xl font-bold hover:bg-brand-signal text-2xl transition-colors shadow-lg shadow-brand-dark/20">
+        Darmowa Wycena
+      </a>
+    </div>
+  </nav>
 </header>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    const links = document.querySelectorAll('.mobile-link');
+    const iconPath = document.getElementById('hamburger-icon');
+
+    if (button && menu && iconPath) {
+      const toggleMenu = () => {
+        const isMenuOpen = menu.classList.contains('opacity-100');
+
+        if (!isMenuOpen) {
+          iconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+          document.body.style.overflow = 'hidden';
+          menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-8');
+          menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        } else {
+          iconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+          document.body.style.overflow = '';
+          menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-8');
+        }
+      };
+
+      button.addEventListener('click', toggleMenu);
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          if (menu.classList.contains('opacity-100')) {
+            toggleMenu();
+          }
+        });
+      });
+    }
+  });
+</script>

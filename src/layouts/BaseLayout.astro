@@ -1,12 +1,8 @@
 ---
 // src/layouts/BaseLayout.astro
 import '../styles/global.css';
-
-// Importujemy globalne komponenty
 import Header from '../components/global/Header.astro';
 import Footer from '../components/global/Footer.astro';
-
-// 1. Dodajemy import funkcji routera z Astro dla płynnych animacji
 import { ClientRouter } from 'astro:transitions';
 
 const { title = "Moja Firma", description = "Nowoczesna strona internetowa" } = Astro.props;
@@ -25,17 +21,56 @@ const { title = "Moja Firma", description = "Nowoczesna strona internetowa" } = 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style is:global>
+      /* Stan początkowy (ukryty i przesunięty lekko w dół) */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      }
+      /* Stan końcowy (widoczny na swoim miejscu) */
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      /* Opcjonalne opóźnienia, by elementy pojawiały się jeden po drugim */
+      .delay-100 { transition-delay: 100ms; }
+      .delay-200 { transition-delay: 200ms; }
+      .delay-300 { transition-delay: 300ms; }
+    </style>
   </head>
   
-  <body class="bg-brand-light text-brand-dark font-sans antialiased min-h-screen flex flex-col">
+  <body class="bg-brand-light text-brand-dark font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
     
     <Header />
 
-    <div class="flex-grow pt-20">
+    <div class="grow pt-20">
       <slot />
     </div>
 
     <Footer />
     
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        // Tworzymy "obserwatora"
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Kiedy element pojawia się na ekranie, dodajemy klasę 'active'
+              entry.target.classList.add('active');
+              // Przestajemy go obserwować (animacja zagra tylko raz)
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { 
+          threshold: 0.1, // Uruchom, gdy widać chociaż 10% elementu
+          rootMargin: "0px 0px -50px 0px" // Uruchom odrobinę przed dolną krawędzią ekranu
+        });
+
+        // Szukamy wszystkich elementów z klasą 'reveal' i każemy je obserwować
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      });
+    </script>
   </body>
 </html>
