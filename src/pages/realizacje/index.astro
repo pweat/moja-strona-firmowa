@@ -1,0 +1,78 @@
+---
+// src/pages/realizacje/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchDatoCMS } from '../../lib/datocms';
+
+// 1. Zaktualizowany interfejs pod DatoCMS
+interface Realizacja {
+  id: string;
+  tytul: string;
+  slug: string;
+  opis: string;
+  zdjCieGWne: {
+    url: string;
+    alt: string;
+  };
+}
+
+// 2. Zaktualizowane zapytanie GraphQL (dokładnie takie jak w CDA Playground + url)
+const graphqlQuery = `
+  {
+    allRealizacjas {
+      id
+      tytul
+      slug
+      opis
+      zdjCieGWne {
+        url
+        alt
+      }
+    }
+  }
+`;
+
+// 3. Pobieranie danych
+const data = await fetchDatoCMS(graphqlQuery);
+const realizacje: Realizacja[] = data.allRealizacjas;
+---
+
+<BaseLayout title="Nasze Realizacje | Wierttrans">
+  <main class="pt-32 pb-24 px-4 max-w-7xl mx-auto">
+    
+    <header class="mb-16 md:mb-24">
+      <h1 class="font-display text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+        Nasze <span class="text-brand-signal">Realizacje.</span>
+      </h1>
+      <p class="text-lg text-gray-600 max-w-2xl">
+        Zobacz, jak w praktyce wygląda nasza praca. Od domów jednorodzinnych po duże inwestycje przemysłowe.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      {realizacje.map((projekt) => (
+        <a href={`/realizacje/${projekt.slug}`} class="group block cursor-pointer">
+          
+          <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3] bg-gray-100">
+            {/* Zaktualizowana ścieżka do zmiennej zdjęcia */}
+            <img 
+              src={projekt.zdjCieGWne.url} 
+              alt={projekt.zdjCieGWne.alt || projekt.tytul}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/10 transition-colors duration-500"></div>
+          </div>
+
+          <h2 class="font-display font-bold text-2xl mb-2 group-hover:text-brand-signal transition-colors">
+            {projekt.tytul}
+          </h2>
+          <p class="text-gray-600 line-clamp-2">
+            {projekt.opis}
+          </p>
+          
+        </a>
+      ))}
+
+    </div>
+  </main>
+</BaseLayout>

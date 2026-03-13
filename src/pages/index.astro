@@ -3,20 +3,96 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Strona Główna | Premium Minimal">
-  <main class="flex flex-col items-center justify-center h-screen px-4 text-center">
-    
-    <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-      Minimalizm & <span class="text-brand-signal">Sygnał</span>
-    </h1>
-    
-    <p class="text-lg md:text-xl max-w-2xl mb-10 opacity-80">
-      Testujemy najnowsze środowisko Astro i Tailwind v4. Wszystko działa perfekcyjnie.
-    </p>
+<BaseLayout title="Wierttrans | Studnie Głębinowe i Pompy Ciepła">
+  <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-4 overflow-hidden">
+    <div class="max-w-7xl mx-auto flex flex-col items-start">
+      <span class="inline-block py-1 px-3 rounded-full bg-gray-200 text-brand-dark text-xs font-bold tracking-wider uppercase mb-6">
+        Kwidzyn i okolice (do 150km)
+      </span>
+      
+      <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight max-w-4xl">
+        Własne źródło <br class="hidden md:block" />
+        <span class="text-brand-signal">niezależności.</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mb-10 leading-relaxed">
+        Kompleksowe odwierty studni głębinowych i pod pompy ciepła. Od analizy gruntu, przez wiercenie, aż po krystalicznie czystą wodę w Twoim kranie.
+      </p>
 
-    <button class="bg-brand-signal text-brand-white px-8 py-4 rounded-full font-medium transition-transform hover:-translate-y-1 hover:shadow-xl cursor-pointer">
-      Odkryj możliwości
-    </button>
-    
-  </main>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/kontakt" class="bg-brand-signal text-brand-white px-8 py-4 rounded-full font-medium transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-signal/30 text-center">
+          Darmowa Wycena
+        </a>
+        <a href="/realizacje" class="bg-white text-brand-dark border border-gray-200 px-8 py-4 rounded-full font-medium transition-all hover:border-gray-400 text-center">
+          Zobacz nasze realizacje
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white px-4 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div>
+        <h3 class="font-display font-bold text-xl mb-3">Tylko topowe materiały.</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Unikamy tanich, chińskich zamienników. Stawiamy na rury i pompy, które przetrwają dekady. Bezkompromisowa jakość.
+        </p>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-xl mb-3">Od A do Z.</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Robimy wszystko: odwiert, podłączenie do budynku i uzdatnianie wody. Nie musisz szukać trzech różnych ekip.
+        </p>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-xl mb-3">Czysto i terminowo.</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Nasi klienci najbardziej cenią nas za porządek na działce i dotrzymywanie słowa. Sprawdź nasze opinie.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 px-4 bg-brand-light">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-display text-4xl font-bold mb-16 tracking-tight">
+        W czym możemy Ci <span class="text-brand-signal">pomóc?</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <a href="/uslugi/studnie" class="group block bg-white p-10 rounded-2xl shadow-sm border border-gray-100 transition-all hover:shadow-xl hover:-translate-y-2">
+          <div class="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-signal/10 transition-colors">
+            <span class="text-brand-signal text-xl font-bold">01</span>
+          </div>
+          <h3 class="font-display font-bold text-2xl mb-4">Studnie Głębinowe</h3>
+          <p class="text-gray-600 text-sm mb-6">Profesjonalne ujęcia wody. Odwierty na każdą głębokość z pełnym podłączeniem do instalacji domowej.</p>
+          <span class="text-brand-signal text-sm font-semibold flex items-center gap-2">
+            Dowiedz się więcej <span class="group-hover:translate-x-1 transition-transform">→</span>
+          </span>
+        </a>
+
+        <a href="/uslugi/pompy-ciepla" class="group block bg-white p-10 rounded-2xl shadow-sm border border-gray-100 transition-all hover:shadow-xl hover:-translate-y-2">
+          <div class="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-signal/10 transition-colors">
+            <span class="text-brand-signal text-xl font-bold">02</span>
+          </div>
+          <h3 class="font-display font-bold text-2xl mb-4">Odwierty pod Pompy</h3>
+          <p class="text-gray-600 text-sm mb-6">Odwierty pod dolne źródła gruntowych pomp ciepła. Gwarancja wydajności i ciepła w Twoim domu przez cały rok.</p>
+          <span class="text-brand-signal text-sm font-semibold flex items-center gap-2">
+            Dowiedz się więcej <span class="group-hover:translate-x-1 transition-transform">→</span>
+          </span>
+        </a>
+
+        <a href="/uslugi/uzdatnianie" class="group block bg-white p-10 rounded-2xl shadow-sm border border-gray-100 transition-all hover:shadow-xl hover:-translate-y-2">
+          <div class="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-signal/10 transition-colors">
+            <span class="text-brand-signal text-xl font-bold">03</span>
+          </div>
+          <h3 class="font-display font-bold text-2xl mb-4">Uzdatnianie Wody</h3>
+          <p class="text-gray-600 text-sm mb-6">Żelazo? Mangan? Twarda woda? Dobieramy i montujemy stacje uzdatniania na podstawie dokładnych badań fizykochemicznych.</p>
+          <span class="text-brand-signal text-sm font-semibold flex items-center gap-2">
+            Dowiedz się więcej <span class="group-hover:translate-x-1 transition-transform">→</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

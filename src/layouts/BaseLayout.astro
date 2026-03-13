@@ -2,9 +2,12 @@
 // src/layouts/BaseLayout.astro
 import '../styles/global.css';
 
-// 1. Importujemy nasze nowe komponenty
+// Importujemy globalne komponenty
 import Header from '../components/global/Header.astro';
 import Footer from '../components/global/Footer.astro';
+
+// 1. Dodajemy import funkcji routera z Astro dla płynnych animacji
+import { ClientRouter } from 'astro:transitions';
 
 const { title = "Moja Firma", description = "Nowoczesna strona internetowa" } = Astro.props;
 ---
@@ -16,6 +19,8 @@ const { title = "Moja Firma", description = "Nowoczesna strona internetowa" } = 
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    
+    <ClientRouter />
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

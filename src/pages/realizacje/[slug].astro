@@ -1,0 +1,88 @@
+---
+// src/pages/realizacje/[slug].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchDatoCMS } from '../../lib/datocms';
+
+// 1. Zdefiniowanie kształtu danych
+interface Realizacja {
+  id: string;
+  tytul: string;
+  slug: string;
+  opis: string;
+  zdjCieGWne: {
+    url: string;
+    alt: string;
+  };
+}
+
+// 2. FUNKCJA getStaticPaths() - to ona tworzy podstrony!
+export async function getStaticPaths() {
+  const query = `
+    {
+      allRealizacjas {
+        tytul
+        slug
+        opis
+        zdjCieGWne {
+          url
+          alt
+        }
+      }
+    }
+  `;
+  
+  const data = await fetchDatoCMS(query);
+  const realizacje: Realizacja[] = data.allRealizacjas;
+
+  // Zwracamy tablicę z "parametrami" (tutaj podajemy slug z CMS-a)
+  // oraz "propsami" (czyli wszystkimi danymi dla tej konkretnej strony)
+  return realizacje.map((projekt) => ({
+    params: { slug: projekt.slug },
+    props: { projekt },
+  }));
+}
+
+// 3. Odbieramy propsy (dane) dla TEJ JEDNEJ konkretnej realizacji
+const { projekt } = Astro.props;
+---
+
+<BaseLayout title={`${projekt.tytul} | Realizacje Wierttrans`}>
+  <main class="pt-24 pb-20">
+    
+    <div class="w-full h-[50vh] md:h-[70vh] relative bg-gray-900">
+      <img 
+        src={projekt.zdjCieGWne.url} 
+        alt={projekt.zdjCieGWne.alt || projekt.tytul}
+        class="w-full h-full object-cover opacity-80"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+      
+      <div class="absolute bottom-0 left-0 w-full p-8 md:p-16">
+        <div class="max-w-4xl mx-auto">
+          <span class="text-brand-signal font-bold tracking-widest uppercase text-sm mb-4 block">
+            Realizacja
+          </span>
+          <h1 class="text-white font-display text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg">
+            {projekt.tytul}
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 mt-16 md:mt-24">
+      <div class="prose prose-lg md:prose-xl prose-gray max-w-none">
+        <p class="whitespace-pre-line text-gray-700 leading-relaxed">
+          {projekt.opis}
+        </p>
+      </div>
+      
+      <div class="mt-20 pt-10 border-t border-gray-200">
+        <a href="/realizacje" class="inline-flex items-center text-brand-dark font-medium hover:text-brand-signal transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          Wróć do wszystkich realizacji
+        </a>
+      </div>
+    </div>
+    
+  </main>
+</BaseLayout>
