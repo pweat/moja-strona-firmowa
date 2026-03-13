@@ -1,1 +1,14 @@
+/* src/styles/global.css */
 @import "tailwindcss";
+
+@theme {
+  /* Tutaj definiujemy TWOJE unikalne kolory z briefu */
+  --color-brand-dark: #1F2937;
+  --color-brand-signal: #E63946;
+  --color-brand-light: #F9FAFB;
+  --color-brand-white: #FFFFFF;
+
+  /* Nowoczesne, geometryczne czcionki */
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Syne", sans-serif;
+}
