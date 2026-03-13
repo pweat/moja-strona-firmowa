@@ -1,0 +1,218 @@
+---
+// src/pages/proces.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const kroki = [
+  {
+    tytul: "Wizja lokalna i projekt",
+    opis: "Spotkanie na miejscu planowanego odwiertu. Ustalenie szczegółów, analiza geologiczna oraz wybór optymalnego miejsca odwiertu zgodnie z prawem budowlanym.",
+    iconHtml: `<path d="M15 22a1 1 0 0 1-1-1v-4a1 1 0 0 1 .445-.832l3-2a1 1 0 0 1 1.11 0l3 2A1 1 0 0 1 22 17v4a1 1 0 0 1-1 1z"/><path d="M18 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 .601.2"/><path d="M18 22v-3"/><circle cx="10" cy="10" r="3"/>`
+  },
+  {
+    tytul: "Wiercenie (dotarcie do warstwy)",
+    opis: "Precyzyjne wykonanie odwiertu i dotarcie do warstwy wodonośnej. Proces przeprowadzamy sprawnie, bez użycia rur osłonowych.",
+    iconHtml: `<path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>`
+  },
+  {
+    tytul: "Wykonanie studni",
+    opis: "Profesjonalny montaż atestowanych rur studziennych z filtrami oraz precyzyjna obsypka żwirowa, zapewniająca długowieczność ujęcia.",
+    iconHtml: `<path d="M20 6 9 17l-5-5"/>`
+  },
+  {
+    tytul: "Pompowanie oczyszczające",
+    opis: "Intensywne pompowanie mające na celu dokładne oczyszczenie nowej studni z drobinek piasku i resztek po procesie wiercenia.",
+    iconHtml: `<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>`
+  },
+  {
+    tytul: "Pomiary parametrów studni",
+    opis: "Dokładne mierzenie wydajności studni, poziomu lustra statycznego (bez pompowania) oraz lustra dynamicznego (w trakcie pompowania z ustaloną wydajnością).",
+    iconHtml: `<path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/>`
+  },
+  {
+    tytul: "Dobór sprzętu i wycena",
+    opis: "Analizujemy zebrane dane. Wycena i dobór sprzętu są zawsze realizowane indywidualnie – adekwatnie do potrzeb klienta oraz zmierzonych parametrów danej studni.",
+    iconHtml: `<path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>`
+  },
+  {
+    tytul: "Montaż osprzętu",
+    opis: "Kompleksowy montaż: obudowy studziennej, pompy głębinowej, hydroforu, wyłącznika (lub falownika), kranu ogrodowego oraz finalne podłączenie wody do budynku.",
+    iconHtml: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/>`
+  },
+  {
+    tytul: "Badanie wody",
+    opis: "Pobranie próbek i przekazanie ich do laboratorium w celu szczegółowego sprawdzenia parametrów fizykochemicznych pozyskanej wody.",
+    iconHtml: `<path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>`
+  },
+  {
+    tytul: "Dobór stacji uzdatniania",
+    opis: "Na podstawie wyników badań z laboratorium, indywidualnie dobieramy stację uzdatniania, aby wyeliminować ewentualne przekroczenia (np. żelazo, mangan).",
+    iconHtml: `<rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/>`
+  },
+  {
+    tytul: "Montaż i uruchomienie",
+    opis: "Finalny montaż stacji uzdatniającej w budynku, jej profesjonalne uruchomienie, programowanie głowicy oraz szkolenie klienta z obsługi. Gotowe!",
+    iconHtml: `<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>`
+  }
+];
+---
+
+<BaseLayout title="Proces Wiercenia Krok po Kroku | Wierttrans">
+  <main class="pt-32 bg-brand-light min-h-screen">
+    
+    <header class="max-w-7xl mx-auto px-4 mb-20 text-center reveal">
+      <span class="text-brand-signal font-bold tracking-widest uppercase text-sm mb-4 block">
+        Transparentność to podstawa
+      </span>
+      <h1 class="font-display text-5xl md:text-7xl font-bold mb-8 tracking-tight text-brand-dark">
+        Od odwiertu po <span class="text-brand-signal">czystą wodę.</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        Jesteśmy dumni z naszego rygorystycznego procesu. Zobacz krok po kroku, jak pracujemy. Przewiń w dół, aby poznać detale.
+      </p>
+    </header>
+
+    <section class="py-12 relative">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+          
+          <div class="hidden lg:block lg:col-span-5 relative">
+            <div class="w-full aspect-square bg-brand-dark rounded-[3rem] p-12 flex items-center justify-center overflow-hidden shadow-2xl shadow-brand-dark/20 border border-gray-800" style="position: sticky; top: 8rem;">
+              <div class="absolute inset-0 bg-gradient-to-br from-brand-signal/20 to-transparent opacity-50 blur-2xl"></div>
+              
+              <div class="relative w-full h-full text-brand-signal">
+                {kroki.map((krok, index) => (
+                  <svg 
+                    id={`visual-${index}`}
+                    class={`visual-icon absolute inset-0 w-full h-full drop-shadow-[0_0_30px_rgba(255,51,102,0.4)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] opacity-0 scale-50 -rotate-45`} 
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    set:html={krok.iconHtml}
+                  >
+                  </svg>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 py-12">
+            
+            <div class="relative pb-32" id="timeline-wrapper">
+              
+              <div class="absolute left-12 top-0 bottom-0 w-1 bg-gray-200 -translate-x-1/2 z-0">
+                <div id="progress-line" class="absolute top-0 left-0 w-full bg-brand-signal rounded-full transition-all duration-700 ease-out z-10" style="height: 0px;"></div>
+              </div>
+
+              <div class="space-y-32 lg:space-y-56 relative z-20" id="steps-container">
+                {kroki.map((krok, index) => (
+                  <div class="step-item relative pl-28 md:pl-32 transition-all duration-500 ease-out opacity-40 transform translate-y-8">
+                    
+                    <div class="absolute left-12 top-0 w-14 h-14 -translate-x-1/2 z-30 flex items-center justify-center">
+                        
+                        <div class="step-circle w-full h-full bg-white border-[4px] border-gray-200 rounded-full flex items-center justify-center font-display font-bold text-xl text-gray-400 shadow-sm transition-all duration-500">
+                          {index + 1}
+                        </div>
+                        
+                    </div>
+                    
+                    <h3 class="font-display text-3xl font-bold text-brand-dark mb-4 transition-all duration-500 step-title">
+                      {krok.tytul}
+                    </h3>
+                    <p class="text-lg text-gray-600 leading-relaxed">{krok.opis}</p>
+                  </div>
+                ))}
+              </div>
+              
+              <div class="reveal mt-48 bg-gradient-to-br from-brand-dark to-gray-900 rounded-[2.5rem] p-10 md:p-14 text-center shadow-2xl relative overflow-hidden group">
+                <div class="absolute inset-0 bg-brand-signal/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <h3 class="font-display text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Znasz już cały proces.</h3>
+                <p class="text-gray-300 text-lg mb-10 relative z-10">Nic przed Tobą nie ukrywamy. Jesteśmy gotowi, by przyjechać na Twoją działkę i zacząć działać. Porozmawiajmy o wycenie.</p>
+                <a href="/kontakt" class="inline-block px-10 py-5 bg-brand-signal text-white rounded-xl font-bold text-lg hover:bg-white hover:text-brand-dark transition-all duration-300 shadow-xl shadow-brand-signal/30 transform hover:-translate-y-1 relative z-10">
+                  Darmowa wycena Twojej studni
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const steps = document.querySelectorAll('.step-item');
+    const visualIcons = document.querySelectorAll('.visual-icon');
+    const progressLine = document.getElementById('progress-line');
+    const wrapper = document.getElementById('timeline-wrapper');
+    
+    if (steps.length === 0 || !wrapper) return;
+
+    const updateActiveStep = () => {
+      let minDistance = Infinity;
+      let activeIndex = 0;
+      const triggerY = window.innerHeight * 0.45; 
+
+      steps.forEach((step, index) => {
+        const rect = step.getBoundingClientRect();
+        const stepCenter = rect.top + (rect.height / 2);
+        const distance = Math.abs(triggerY - stepCenter);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeIndex = index;
+        }
+      });
+
+      // Obliczanie wysokości czerwonej linii na podstawie stałego punktu, odporne na skalowanie
+      if (progressLine && steps[activeIndex]) {
+        const activeStep = steps[activeIndex] as HTMLElement;
+        const targetHeight = activeStep.offsetTop + 28; // 28 to dokładnie połowa wysokości naszego kółka
+        progressLine.style.height = `${targetHeight}px`;
+      }
+
+      steps.forEach((s, i) => {
+        const isTarget = i === activeIndex;
+        
+        // Zmieniono klasy - nie ma już tutaj translate-x, element podnosi się tylko do góry (translate-y-0)
+        s.classList.toggle('opacity-100', isTarget);
+        s.classList.toggle('translate-y-0', isTarget);
+        s.classList.toggle('opacity-40', !isTarget);
+        s.classList.toggle('translate-y-8', !isTarget);
+        
+        const circle = s.querySelector('.step-circle');
+        circle?.classList.toggle('border-brand-signal', isTarget);
+        circle?.classList.toggle('text-brand-signal', isTarget);
+        circle?.classList.toggle('scale-125', isTarget); 
+        circle?.classList.toggle('shadow-[0_0_20px_rgba(255,51,102,0.4)]', isTarget);
+        
+        circle?.classList.toggle('border-gray-200', !isTarget);
+        circle?.classList.toggle('text-gray-400', !isTarget);
+        circle?.classList.toggle('scale-100', !isTarget);
+        circle?.classList.toggle('shadow-sm', !isTarget);
+        
+        const title = s.querySelector('.step-title');
+        title?.classList.toggle('text-brand-signal', isTarget);
+        title?.classList.toggle('text-brand-dark', !isTarget);
+
+        const icon = visualIcons[i];
+        if (icon) {
+          icon.classList.toggle('opacity-100', isTarget);
+          icon.classList.toggle('scale-100', isTarget);
+          icon.classList.toggle('rotate-0', isTarget);
+          icon.classList.toggle('opacity-0', !isTarget);
+          icon.classList.toggle('scale-50', !isTarget);
+          icon.classList.toggle('-rotate-45', !isTarget);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', updateActiveStep);
+    setTimeout(updateActiveStep, 100); 
+
+    document.addEventListener('astro:before-swap', () => {
+      window.removeEventListener('scroll', updateActiveStep);
+    }, { once: true });
+  });
+</script>

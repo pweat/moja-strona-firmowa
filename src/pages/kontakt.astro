@@ -3,14 +3,71 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 // LOGIKA FULLSTACK: Sprawdzamy, czy formularz został przed chwilą wysłany
-// Odczytujemy to z paska adresu przeglądarki (szukamy dopisku ?success=true)
 const isSuccess = Astro.url.searchParams.get('success') === 'true';
+
+// MAGIA SEO: Zaktualizowane FAQ z Twojej starej strony dla Google
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Na jakim obszarze świadczycie usługi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nasze usługi są dostępne na obszarze do 150 km od Kwidzyna, znajdującego się w województwie pomorskim. Nasz zasięg obejmuje takie województwa jak: Pomorskie, Zachodniopomorskie, Kujawsko-Pomorskie, Warmińsko-Mazurskie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co to jest studnia głębinowa i jakie są jej zalety?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Studnia głębinowa to specjalistyczny odwiert, który pozwala na uzyskanie dostępu do własnego źródła wody głębinowej. Jest to idealne rozwiązanie dla tych, którzy cenią sobie niezależność i chcą korzystać z własnej wody."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak długo trwa proces wiercenia studni głębinowej?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Realizacja studni głębinowej dla budynku jednorodzinnego zajmuje zazwyczaj od 1 do 3 dni, w zależności od specyficznych warunków na miejscu budowy. Podłączenie studni do budynku jest zwykle zakończone w ciągu jednego dnia, co zapewnia szybką i efektywną instalację."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jaki jest koszt wywiercenia studni głębinowej?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Koszt realizacji studni głębinowej jest ustalany indywidualnie, ponieważ zależy on bezpośrednio od głębokości odwiertu. Zapewniamy naszym klientom szczegółową wycenę, dostosowaną do ich specyficznych potrzeb i wymagań."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Czy dajecie gwarancję wody ze studni?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jedną z głównych przewag naszej firmy w porównaniu do konkurencji jest unikalna gwarancja uzyskania wody. Rozliczenie za wykonaną pracę następuje dopiero po pomyślnym uzyskaniu wody ze studni. Co więcej, w przypadku odwiertu, który nie dostarcza wody, nie naliczamy opłat. Dzięki temu nasi klienci mogą mieć pewność, że ich inwestycja jest w pełni zabezpieczona."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Czy mogę zainstalować system uzdatniania wody do mojej studni głębinowej?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Z naszym doświadczeniem i wynikami badań wody, jesteśmy w stanie uzdatnić niemal każdą wodę. Kluczowe jest dobór właściwych urządzeń uzdatniających, które są dostosowane do specyficznych wyników badań wody. Dzięki temu zapewniamy skuteczne i bezpieczne rozwiązania, spełniające indywidualne potrzeby każdego klienta."
+      }
+    }
+  ]
+};
 ---
 
-<BaseLayout title="Kontakt | Wierttrans - Darmowa Wycena">
+<BaseLayout title="Kontakt i FAQ | Wierttrans - Darmowa Wycena">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <main class="pt-32 pb-24 px-4 max-w-7xl mx-auto">
     
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-32 reveal">
       
       <div>
         <span class="text-brand-signal font-bold tracking-widest uppercase text-sm mb-4 block">
@@ -40,15 +97,14 @@ const isSuccess = Astro.url.searchParams.get('success') === 'true';
             <p class="text-sm text-gray-500 mb-1 uppercase tracking-wider font-semibold">Siedziba firmy</p>
             <p class="text-xl font-display font-medium text-brand-dark">
               Kwidzyn i okolice<br/>
-              (dojazd do 150km)
+              <span class="text-gray-500 text-base">(dojazd do 150km)</span>
             </p>
           </div>
         </div>
       </div>
 
-      <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100">
+      <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 reveal delay-100">
         
-        {/* Jeśli formularz wysłał się poprawnie, pokazujemy zielony komunikat */}
         {isSuccess && (
           <div class="mb-8 p-6 bg-green-50 border border-green-200 rounded-xl text-green-800">
             <h3 class="font-bold text-lg mb-1">Wiadomość wysłana!</h3>
@@ -60,7 +116,6 @@ const isSuccess = Astro.url.searchParams.get('success') === 'true';
           
           <input type="hidden" name="access_key" value="1f8d3958-76c6-41eb-b90b-82806464e30c">
           <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-          
           <input type="hidden" name="redirect" value="http://localhost:4321/kontakt?success=true">
 
           <div>
@@ -81,13 +136,134 @@ const isSuccess = Astro.url.searchParams.get('success') === 'true';
           <button type="submit" class="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-signal transition-colors duration-300 transform active:scale-[0.98] cursor-pointer">
             Wyślij wiadomość
           </button>
-          
-          <p class="text-xs text-center text-gray-500 mt-4">
-            Wysyłając wiadomość, zgadzasz się na naszą politykę prywatności.
-          </p>
         </form>
+      </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto reveal delay-200">
+      <div class="text-center mb-12">
+        <h2 class="font-display text-4xl font-bold text-brand-dark mb-4">F.A.Q.</h2>
+        <p class="text-gray-600">Najczęściej występujące pytania</p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden transition-colors hover:border-brand-signal/50">
+          <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-lg text-brand-dark pr-4">Na jakim obszarze świadczycie usługi?</span>
+            <svg class="faq-icon w-6 h-6 text-brand-signal flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          </button>
+          <div class="faq-answer grid transition-all duration-300" style="grid-template-rows: 0fr;">
+            <div class="overflow-hidden">
+              <p class="px-6 pb-6 text-gray-600 leading-relaxed">
+                Nasze usługi są dostępne na obszarze do 150 km od Kwidzyna, znajdującego się w województwie pomorskim.<br/>
+                Nasz zasięg obejmuje takie województwa jak:<br/>
+                - Pomorskie<br/>
+                - Zachodniopomorskie<br/>
+                - Kujawsko-Pomorskie<br/>
+                - Warmińsko-Mazurskie
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden transition-colors hover:border-brand-signal/50">
+          <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-lg text-brand-dark pr-4">Co to jest studnia głębinowa i jakie są jej zalety?</span>
+            <svg class="faq-icon w-6 h-6 text-brand-signal flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          </button>
+          <div class="faq-answer grid transition-all duration-300" style="grid-template-rows: 0fr;">
+            <div class="overflow-hidden">
+              <p class="px-6 pb-6 text-gray-600 leading-relaxed">
+                Studnia głębinowa to specjalistyczny odwiert, który pozwala na uzyskanie dostępu do własnego źródła wody głębinowej. Jest to idealne rozwiązanie dla tych, którzy cenią sobie niezależność i chcą korzystać z własnej wody.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden transition-colors hover:border-brand-signal/50">
+          <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-lg text-brand-dark pr-4">Jak długo trwa proces wiercenia studni głębinowej?</span>
+            <svg class="faq-icon w-6 h-6 text-brand-signal flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          </button>
+          <div class="faq-answer grid transition-all duration-300" style="grid-template-rows: 0fr;">
+            <div class="overflow-hidden">
+              <p class="px-6 pb-6 text-gray-600 leading-relaxed">
+                Realizacja studni głębinowej dla budynku jednorodzinnego zajmuje zazwyczaj od 1 do 3 dni, w zależności od specyficznych warunków na miejscu budowy. Podłączenie studni do budynku jest zwykle zakończone w ciągu jednego dnia, co zapewnia szybką i efektywną instalację.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden transition-colors hover:border-brand-signal/50">
+          <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-lg text-brand-dark pr-4">Jaki jest koszt wywiercenia studni głębinowej?</span>
+            <svg class="faq-icon w-6 h-6 text-brand-signal flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          </button>
+          <div class="faq-answer grid transition-all duration-300" style="grid-template-rows: 0fr;">
+            <div class="overflow-hidden">
+              <p class="px-6 pb-6 text-gray-600 leading-relaxed">
+                Koszt realizacji studni głębinowej jest ustalany indywidualnie, ponieważ zależy on bezpośrednio od głębokości odwiertu. Zapewniamy naszym klientom szczegółową wycenę, dostosowaną do ich specyficznych potrzeb i wymagań.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden transition-colors hover:border-brand-signal/50">
+          <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-lg text-brand-dark pr-4">Czy dajecie gwarancję wody ze studni?</span>
+            <svg class="faq-icon w-6 h-6 text-brand-signal flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          </button>
+          <div class="faq-answer grid transition-all duration-300" style="grid-template-rows: 0fr;">
+            <div class="overflow-hidden">
+              <p class="px-6 pb-6 text-gray-600 leading-relaxed">
+                Jedną z głównych przewag naszej firmy w porównaniu do konkurencji jest unikalna gwarancja uzyskania wody. Rozliczenie za wykonaną pracę następuje dopiero po pomyślnym uzyskaniu wody ze studni. Co więcej, w przypadku odwiertu, który nie dostarcza wody, nie naliczamy opłat. Dzięki temu nasi klienci mogą mieć pewność, że ich inwestycja jest w pełni zabezpieczona.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden transition-colors hover:border-brand-signal/50">
+          <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-lg text-brand-dark pr-4">Czy mogę zainstalować system uzdatniania wody do mojej studni głębinowej?</span>
+            <svg class="faq-icon w-6 h-6 text-brand-signal flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          </button>
+          <div class="faq-answer grid transition-all duration-300" style="grid-template-rows: 0fr;">
+            <div class="overflow-hidden">
+              <p class="px-6 pb-6 text-gray-600 leading-relaxed">
+                Z naszym doświadczeniem i wynikami badań wody, jesteśmy w stanie uzdatnić niemal każdą wodę. Kluczowe jest dobór właściwych urządzeń uzdatniających, które są dostosowane do specyficznych wyników badań wody. Dzięki temu zapewniamy skuteczne i bezpieczne rozwiązania, spełniające indywidualne potrzeby każdego klienta.
+              </p>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
   </main>
 </BaseLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const faqButtons = document.querySelectorAll('.faq-button');
+
+    faqButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const answer = button.nextElementSibling as HTMLElement;
+        const icon = button.querySelector('.faq-icon') as HTMLElement;
+        const isOpen = answer.style.gridTemplateRows === '1fr';
+
+        document.querySelectorAll('.faq-answer').forEach(el => {
+          (el as HTMLElement).style.gridTemplateRows = '0fr';
+        });
+        document.querySelectorAll('.faq-icon').forEach(el => {
+          (el as HTMLElement).style.transform = 'rotate(0deg)';
+        });
+
+        if (!isOpen) {
+          answer.style.gridTemplateRows = '1fr';
+          icon.style.transform = 'rotate(45deg)';
+        }
+      });
+    });
+  });
+</script>

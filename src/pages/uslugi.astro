@@ -13,9 +13,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h1 class="font-display text-5xl md:text-7xl font-bold mb-8 tracking-tight text-brand-dark">
         Kompleksowe <span class="text-brand-signal">Usługi.</span>
       </h1>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
         Od wizji lokalnej, przez precyzyjny odwiert, aż po czystą wodę w Twoim kranie i ekologiczne ciepło w domu. Zobacz, jak działamy krok po kroku.
       </p>
+      
+      <a href="/proces" class="inline-flex items-center px-8 py-4 bg-brand-dark text-white rounded-xl font-bold hover:bg-brand-signal transition-colors duration-300 shadow-lg shadow-brand-dark/20 transform hover:-translate-y-1 text-lg">
+        Zobacz nasz 10-etapowy proces
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7-7m7-7H3"></path></svg>
+      </a>
     </header>
 
     <section id="studnie" class="py-24 bg-white border-t border-gray-100">
@@ -24,58 +29,43 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="reveal">
             <h2 class="font-display text-4xl md:text-5xl font-bold text-brand-dark mb-6">Studnie Głębinowe</h2>
             <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-              Nasza firma specjalizuje się w profesjonalnym i kompleksowym wykonywaniu ujęć wody ze studni głębinowych. Zobacz nasz uproszczony proces, który gwarantuje przejrzystość na każdym etapie.
+              Nasza firma specjalizuje się w profesjonalnym i kompleksowym wykonywaniu ujęć wody ze studni głębinowych. Działamy w sposób przejrzysty i przewidywalny dla klienta.
             </p>
             
-            <div class="space-y-8 mt-12">
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-light flex items-center justify-center text-brand-signal font-bold text-xl">1</div>
-                <div>
-                  <h4 class="text-xl font-bold text-brand-dark mb-2">Wizja lokalna</h4>
-                  <p class="text-gray-600">Spotkanie na miejscu planowanego odwiertu jest kluczowe, by ustalić wszystkie szczegóły oraz miejsce odwiertu zgodnie z prawem budowlanym.</p>
-                </div>
+            <a href="/proces" class="inline-flex items-center text-brand-signal font-bold hover:text-brand-dark transition-colors mb-12 text-lg">
+              Sprawdź szczegóły wiercenia krok po kroku
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal delay-200">
+              <div class="col-span-1 sm:col-span-2 bg-brand-dark text-white p-10 rounded-3xl">
+                <h3 class="font-display text-3xl font-bold mb-4">Dla kogo wiercimy?</h3>
+                <p class="text-gray-400">Dostosowujemy nasze rozwiązania do różnych potrzeb i skali inwestycji.</p>
               </div>
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-light flex items-center justify-center text-brand-signal font-bold text-xl">2</div>
-                <div>
-                  <h4 class="text-xl font-bold text-brand-dark mb-2">Wykonanie studni</h4>
-                  <p class="text-gray-600">Począwszy od wykonania odwiertu, poprzez instalację rur studziennych z filtrami, aż po finalne prace, takie jak obsypka żwirowa i uszczelnienie otworu.</p>
-                </div>
+              
+              <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
+                <h4 class="font-bold text-brand-dark text-xl mb-3">Osoby prywatne</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">Wykopanie własnej studni jest często tańsze niż podłączenie do sieci. Idealne na niezależne źródło wody.</p>
               </div>
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-light flex items-center justify-center text-brand-signal font-bold text-xl">3</div>
-                <div>
-                  <h4 class="text-xl font-bold text-brand-dark mb-2">Pompowanie oczyszczające</h4>
-                  <p class="text-gray-600">Przeprowadzamy dokładne pompowanie oczyszczające studni i mierzymy jej parametry, aby dostosować osprzęt.</p>
-                </div>
+              <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
+                <h4 class="font-bold text-brand-dark text-xl mb-3">Gospodarstwa rolne</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">Z własną studnią głębinową możesz łatwo nawadniać duże obszary, nie martwiąc się o wysokie koszty.</p>
               </div>
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-signal text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-brand-signal/30">4</div>
-                <div>
-                  <h4 class="text-xl font-bold text-brand-dark mb-2">Podłączenie studni</h4>
-                  <p class="text-gray-600">Po dokładnej analizie wymagań, dobieramy odpowiedni osprzęt i przystępujemy do profesjonalnego podłączenia studni.</p>
-                </div>
+              <div class="col-span-1 sm:col-span-2 bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
+                <h4 class="font-bold text-brand-dark text-xl mb-3">Firmy i Przedsiębiorstwa</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">Nasz nacisk na niezawodność w każdym aspekcie gwarantuje satysfakcję i bezpieczeństwo klientów biznesowych.</p>
               </div>
             </div>
           </div>
           
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal delay-200">
-            <div class="col-span-1 sm:col-span-2 bg-brand-dark text-white p-10 rounded-3xl">
-              <h3 class="font-display text-3xl font-bold mb-4">Dla kogo wiercimy?</h3>
-              <p class="text-gray-400">Dostosowujemy nasze rozwiązania do różnych potrzeb i skali inwestycji.</p>
-            </div>
-            
-            <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
-              <h4 class="font-bold text-brand-dark text-xl mb-3">Osoby prywatne</h4>
-              <p class="text-sm text-gray-600 leading-relaxed">Wykopanie własnej studni jest często tańsze niż podłączenie do sieci. Idealne na niezależne źródło wody.</p>
-            </div>
-            <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
-              <h4 class="font-bold text-brand-dark text-xl mb-3">Gospodarstwa rolne</h4>
-              <p class="text-sm text-gray-600 leading-relaxed">Z własną studnią głębinową możesz łatwo nawadniać duże obszary, nie martwiąc się o wysokie koszty.</p>
-            </div>
-            <div class="col-span-1 sm:col-span-2 bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
-              <h4 class="font-bold text-brand-dark text-xl mb-3">Firmy i Przedsiębiorstwa</h4>
-              <p class="text-sm text-gray-600 leading-relaxed">Nasz nacisk na niezawodność w każdym aspekcie gwarantuje satysfakcję i bezpieczeństwo klientów biznesowych.</p>
+          <div class="reveal delay-100">
+            <div class="aspect-[4/5] bg-brand-light rounded-[3rem] p-8 relative overflow-hidden">
+               <img src="https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=2070&auto=format&fit=crop" alt="Praca w terenie" class="absolute inset-0 w-full h-full object-cover opacity-90 rounded-[3rem]" />
+               <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent rounded-[3rem]"></div>
+               <div class="absolute bottom-10 left-10 right-10">
+                  <h3 class="text-white font-display text-3xl font-bold mb-2">Ponad 150km zasięgu</h3>
+                  <p class="text-gray-300">Działamy na terenie Kwidzyna i sąsiednich województw.</p>
+               </div>
             </div>
           </div>
         </div>
