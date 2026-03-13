@@ -1,0 +1,89 @@
+---
+// src/pages/blog/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchDatoCMS } from '../../lib/datocms';
+
+// 1. Zaktualizowany "przepis" dla TypeScriptu
+interface Artykul {
+  id: string;
+  tytu: string;
+  slug: string;
+  zajawka: string;
+  zdjCieGWne: {
+    url: string;
+    alt: string;
+  };
+}
+
+// 2. Zaktualizowana lista zakupów GraphQL (zgodna z CDA Playground)
+const graphqlQuery = `
+  {
+    allArtykuls {
+      id
+      tytu
+      slug
+      zajawka
+      zdjCieGWne {
+        url
+        alt
+      }
+    }
+  }
+`;
+
+// 3. Pobieramy dane
+const data = await fetchDatoCMS(graphqlQuery);
+const artykuly: Artykul[] = data.allArtykuls;
+---
+
+<BaseLayout title="Baza Wiedzy | Wierttrans - Eksperci od wody i ciepła">
+  <main class="pt-32 pb-24 px-4 max-w-7xl mx-auto">
+    
+    <header class="mb-16 md:mb-24 border-b border-gray-200 pb-12">
+      <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+        Baza <span class="text-brand-signal">Wiedzy.</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-2xl">
+        Praktyczne porady, ciekawostki branżowe i odpowiedzi na najczęstsze pytania dotyczące studni głębinowych i pomp ciepła.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      
+      {/* Pętla tworząca karty artykułów */}
+      {artykuly.map((artykul) => (
+        <article class="group flex flex-col items-start justify-start">
+          <a href={`/blog/${artykul.slug}`} class="w-full block overflow-hidden rounded-2xl mb-6 bg-gray-100 aspect-16/10">
+            <img 
+              src={artykul.zdjCieGWne.url} 
+              alt={artykul.zdjCieGWne.alt || artykul.tytu}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </a>
+          
+          <div class="flex flex-col grow">
+            <span class="text-brand-signal font-bold tracking-wider uppercase text-xs mb-3">
+              Poradnik
+            </span>
+            
+            <a href={`/blog/${artykul.slug}`} class="block">
+              <h2 class="font-display font-bold text-2xl mb-4 text-brand-dark group-hover:text-brand-signal transition-colors leading-tight">
+                {artykul.tytu}
+              </h2>
+            </a>
+            
+            <p class="text-gray-600 line-clamp-3 mb-6 leading-relaxed">
+              {artykul.zajawka}
+            </p>
+            
+            <a href={`/blog/${artykul.slug}`} class="mt-auto inline-flex items-center text-brand-dark font-semibold hover:text-brand-signal transition-colors text-sm uppercase tracking-wide">
+              Czytaj dalej 
+              <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+          </div>
+        </article>
+      ))}
+
+    </div>
+  </main>
+</BaseLayout>

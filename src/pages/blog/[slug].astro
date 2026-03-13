@@ -1,0 +1,95 @@
+---
+// src/pages/blog/[slug].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchDatoCMS } from '../../lib/datocms';
+
+// 1. Zdefiniowanie kształtu danych
+interface Artykul {
+  tytu: string;
+  slug: string;
+  zajawka: string;
+  tre: string;
+  zdjCieGWne: {
+    url: string;
+    alt: string;
+  };
+}
+
+// 2. FUNKCJA getStaticPaths() - to ona rozwiązuje Twój błąd!
+// Pobiera listę wszystkich artykułów z CMS i mówi Astro, jakie podstrony wygenerować.
+export async function getStaticPaths() {
+  const query = `
+    {
+      allArtykuls {
+        tytu
+        slug
+        zajawka
+        tre
+        zdjCieGWne {
+          url
+          alt
+        }
+      }
+    }
+  `;
+  
+  const data = await fetchDatoCMS(query);
+  const artykuly: Artykul[] = data.allArtykuls;
+
+  // Zwracamy tablicę z parametrami dla każdej podstrony
+  return artykuly.map((artykul) => ({
+    params: { slug: artykul.slug },
+    props: { artykul },
+  }));
+}
+
+// 3. Odbieramy dane dla TEGO JEDNEGO konkretnego artykułu
+const { artykul } = Astro.props;
+---
+
+<BaseLayout title={`${artykul.tytu} | Baza Wiedzy Wierttrans`}>
+  <main class="pt-32 pb-24 px-4">
+    
+    <article class="max-w-4xl mx-auto">
+      
+      <header class="mb-12 text-center">
+        <span class="text-brand-signal font-bold tracking-wider uppercase text-sm mb-6 block">
+          Poradnik Eksperta
+        </span>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-brand-dark mb-8 leading-tight">
+          {artykul.tytu}
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          {artykul.zajawka}
+        </p>
+      </header>
+
+      <div class="w-full aspect-video rounded-3xl overflow-hidden mb-16 bg-gray-100 shadow-xl shadow-gray-200/50">
+        <img 
+          src={artykul.zdjCieGWne.url} 
+          alt={artykul.zdjCieGWne.alt || artykul.tytu}
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <div class="text-lg md:text-xl text-gray-800 leading-relaxed space-y-8 font-sans">
+          <p class="whitespace-pre-line">
+            {artykul.tre}
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-3xl mx-auto mt-20 pt-10 border-t border-gray-200">
+        <a href="/blog" class="inline-flex items-center text-brand-dark font-medium hover:text-brand-signal transition-colors">
+          <svg width="20" height="20" class="mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Wróć do listy artykułów
+        </a>
+      </div>
+
+    </article>
+    
+  </main>
+</BaseLayout>
