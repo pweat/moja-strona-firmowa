@@ -3,10 +3,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchDatoCMS } from '../../lib/datocms';
 
-// 1. Zaktualizowany "przepis" dla TypeScriptu
 interface Artykul {
   id: string;
-  tytu: string;
+  tytu: string; // Zostawiam 'tytu', tak jak masz to skonfigurowane w CMS
   slug: string;
   zajawka: string;
   zdjCieGWne: {
@@ -15,7 +14,6 @@ interface Artykul {
   };
 }
 
-// 2. Zaktualizowana lista zakupów GraphQL (zgodna z CDA Playground)
 const graphqlQuery = `
   {
     allArtykuls {
@@ -31,58 +29,101 @@ const graphqlQuery = `
   }
 `;
 
-// 3. Pobieramy dane
 const data = await fetchDatoCMS(graphqlQuery);
 const artykuly: Artykul[] = data.allArtykuls;
+
+// Rozdzielamy: pierwszy artykuł jest "Flagowy", reszta leci do siatki poniżej
+const flagowyArtykul = artykuly[0];
+const pozostaleArtykuly = artykuly.slice(1);
 ---
 
 <BaseLayout title="Baza Wiedzy | Wierttrans - Eksperci od wody i ciepła">
-  <main class="pt-32 pb-24 px-4 max-w-7xl mx-auto">
+  <main class="relative overflow-hidden bg-brand-light min-h-screen pb-24">
     
-    <header class="mb-16 md:mb-24 border-b border-gray-200 pb-12">
-      <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-        Baza <span class="text-brand-signal">Wiedzy.</span>
-      </h1>
-      <p class="text-xl text-gray-600 max-w-2xl">
-        Praktyczne porady, ciekawostki branżowe i odpowiedzi na najczęstsze pytania dotyczące studni głębinowych i pomp ciepła.
-      </p>
-    </header>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none z-0"></div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+    <div class="absolute right-[-5%] top-[5%] z-0 h-[500px] w-[500px] rounded-full bg-brand-signal opacity-[0.08] blur-[120px] mix-blend-multiply pointer-events-none"></div>
+    <div class="absolute left-[-10%] top-[40%] z-0 h-[600px] w-[600px] rounded-full bg-blue-500 opacity-[0.06] blur-[150px] mix-blend-multiply pointer-events-none"></div>
+
+    <div class="pt-32 max-w-7xl mx-auto px-4 relative z-10">
       
-      {/* Pętla tworząca karty artykułów */}
-      {artykuly.map((artykul) => (
-        <article class="group flex flex-col items-start justify-start">
-          <a href={`/blog/${artykul.slug}`} class="w-full block overflow-hidden rounded-2xl mb-6 bg-gray-100 aspect-16/10">
-            <img 
-              src={artykul.zdjCieGWne.url} 
-              alt={artykul.zdjCieGWne.alt || artykul.tytu}
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-          </a>
-          
-          <div class="flex flex-col grow">
-            <span class="text-brand-signal font-bold tracking-wider uppercase text-xs mb-3">
-              Poradnik
-            </span>
-            
-            <a href={`/blog/${artykul.slug}`} class="block">
-              <h2 class="font-display font-bold text-2xl mb-4 text-brand-dark group-hover:text-brand-signal transition-colors leading-tight">
-                {artykul.tytu}
+      <header class="mb-16 md:mb-24 text-center max-w-3xl mx-auto reveal">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 text-brand-dark font-bold tracking-widest uppercase text-xs md:text-sm mb-6 shadow-sm">
+          <svg class="w-4 h-4 text-brand-signal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          Edukacja i Porady
+        </span>
+        <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 tracking-tight text-brand-dark">
+          Baza <span class="text-brand-signal">Wiedzy.</span>
+        </h1>
+        <p class="text-xl text-gray-600">
+          Praktyczne porady, ciekawostki branżowe i odpowiedzi na najczęstsze pytania dotyczące studni głębinowych i pomp ciepła.
+        </p>
+      </header>
+
+      {flagowyArtykul && (
+        <a href={`/blog/${flagowyArtykul.slug}`} class="group block mb-16 md:mb-24 reveal bg-white/70 backdrop-blur-2xl border border-white/60 rounded-[3rem] shadow-xl shadow-gray-200/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-brand-signal/10 hover:-translate-y-1">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 h-full">
+            <div class="relative aspect-video lg:aspect-auto h-full overflow-hidden bg-gray-200">
+              <img 
+                src={flagowyArtykul.zdjCieGWne.url} 
+                alt={flagowyArtykul.zdjCieGWne.alt || flagowyArtykul.tytu} 
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+              />
+            </div>
+            <div class="p-8 md:p-16 flex flex-col justify-center relative">
+              <div class="absolute -top-24 -right-24 w-48 h-48 bg-brand-signal/5 rounded-full blur-3xl pointer-events-none"></div>
+              
+              <span class="inline-block px-4 py-2 bg-brand-signal/10 text-brand-signal text-xs md:text-sm font-bold uppercase tracking-widest rounded-xl mb-6 w-max border border-brand-signal/20">
+                Najnowszy wpis
+              </span>
+              <h2 class="font-display text-3xl md:text-5xl font-bold text-brand-dark mb-6 group-hover:text-brand-signal transition-colors leading-tight">
+                {flagowyArtykul.tytu}
               </h2>
-            </a>
-            
-            <p class="text-gray-600 line-clamp-3 mb-6 leading-relaxed">
-              {artykul.zajawka}
-            </p>
-            
-            <a href={`/blog/${artykul.slug}`} class="mt-auto inline-flex items-center text-brand-dark font-semibold hover:text-brand-signal transition-colors text-sm uppercase tracking-wide">
-              Czytaj dalej 
-              <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
+              <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                {flagowyArtykul.zajawka}
+              </p>
+              <div class="inline-flex items-center text-brand-dark font-bold uppercase tracking-wider text-sm group-hover:text-brand-signal transition-colors mt-auto">
+                Czytaj artykuł 
+                <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+            </div>
           </div>
-        </article>
-      ))}
+        </a>
+      )}
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {pozostaleArtykuly.map((artykul, index) => (
+          <a href={`/blog/${artykul.slug}`} class={`group flex flex-col bg-white/60 backdrop-blur-xl border border-white/60 rounded-[2.5rem] overflow-hidden shadow-lg shadow-gray-200/30 hover:shadow-xl hover:shadow-brand-signal/10 transition-all duration-300 hover:-translate-y-2 reveal delay-${(index % 3) * 100}`}>
+            <div class="relative aspect-video overflow-hidden bg-gray-200">
+              <img 
+                src={artykul.zdjCieGWne.url} 
+                alt={artykul.zdjCieGWne.alt || artykul.tytu}
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-linear-to-t from-brand-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            
+            <div class="p-8 flex flex-col grow relative">
+              <span class="text-brand-signal font-bold tracking-wider uppercase text-xs mb-4">
+                Poradnik
+              </span>
+              
+              <h3 class="font-display font-bold text-2xl mb-4 text-brand-dark group-hover:text-brand-signal transition-colors leading-tight">
+                {artykul.tytu}
+              </h3>
+              
+              <p class="text-gray-600 line-clamp-3 mb-8 leading-relaxed grow">
+                {artykul.zajawka}
+              </p>
+              
+              <div class="mt-auto inline-flex items-center text-brand-dark font-bold group-hover:text-brand-signal transition-colors text-sm uppercase tracking-wide">
+                Czytaj dalej 
+                <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
 
     </div>
   </main>

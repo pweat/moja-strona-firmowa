@@ -3,53 +3,145 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="O nas | Wierttrans - Studnie Głębinowe">
-  <main class="pt-32 pb-24 px-4 max-w-7xl mx-auto">
+<BaseLayout title="O firmie | Wierttrans - Doświadczenie w Wierceniu">
+  <main class="relative overflow-hidden bg-brand-light pb-24 min-h-screen">
     
-    <header class="mb-20 md:mb-32 max-w-3xl reveal">
-      <span class="text-brand-signal font-bold tracking-widest uppercase text-sm mb-4 block">
-        Nasza Historia
-      </span>
-      <h1 class="font-display text-4xl md:text-6xl font-bold mb-8 tracking-tight leading-tight">
-        Wiercimy głębiej, abyś spał <span class="text-brand-signal">spokojniej.</span>
-      </h1>
-      <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
-        Jesteśmy zespołem ekspertów z Kwidzyna. Od lat dostarczamy niezależność wodną i energetyczną dla domów i firm. Bez kompromisów w kwestii jakości.
-      </p>
-    </header>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none"></div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+    <div class="absolute right-[-5%] top-[5%] -z-10 h-100 w-100 rounded-full bg-brand-signal opacity-[0.08] blur-[120px] mix-blend-multiply pointer-events-none"></div>
+    <div class="absolute left-[-10%] top-[40%] -z-10 h-125 w-125 rounded-full bg-blue-500 opacity-[0.06] blur-[150px] mix-blend-multiply pointer-events-none"></div>
+
+    <div class="pt-32 max-w-7xl mx-auto px-4 relative z-10">
       
-      <div class="lg:col-span-7 prose prose-lg prose-gray reveal delay-100">
-        <h2 class="font-display text-3xl font-bold text-brand-dark mb-6">Dlaczego my?</h2>
-        <p class="text-gray-700 leading-relaxed mb-6">
-          W branży wiertniczej nie ma miejsca na błędy. Źle wykonany odwiert to problemy na lata. Dlatego w Wierttrans stawiamy na przejrzystość i bezwzględną jakość. Nie używamy tanich, chińskich zamienników, które psują się po pierwszym sezonie.
+      <header class="text-center max-w-3xl mx-auto mb-20 md:mb-32 reveal">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 text-brand-dark font-bold tracking-widest uppercase text-xs md:text-sm mb-6 shadow-sm">
+          <svg class="w-4 h-4 text-brand-signal" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Poznaj Wierttrans
+        </span>
+        <h1 class="font-display text-5xl md:text-7xl font-bold text-brand-dark mb-8 tracking-tight leading-tight">
+          Nie szukamy wody. <br/>
+          <span class="text-brand-signal">My ją znajdujemy.</span>
+        </h1>
+        <p class="text-xl text-gray-600 leading-relaxed">
+          Jesteśmy zespołem specjalistów, dla których geologia i nowoczesne technologie wiertnicze nie mają tajemnic. Zobacz, co stoi za naszym sukcesem.
         </p>
-        <p class="text-gray-700 leading-relaxed">
-          Nasz sprzęt pozwala nam wiercić w każdych warunkach geologicznych, a doświadczenie ekipy gwarantuje, że po skończonej pracy Twoja działka pozostanie w nienagannym porządku. Działamy kompleksowo: od pierwszej analizy gruntu, przez odwiert, aż po montaż pomp i stacji uzdatniania.
-        </p>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
+        
+        <div class="space-y-8 reveal">
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-dark">Doświadczenie, któremu możesz zaufać</h2>
+          
+          <div class="prose prose-lg text-gray-600">
+            <p>
+              Firma <strong>Wierttrans</strong> powstała z pasji do nowoczesnych technologii instalacyjnych oraz głębokiego zrozumienia procesów geologicznych. Od początku naszej działalności stawiamy na jeden cel: dostarczać klientom <strong>całkowitą niezależność</strong>.
+            </p>
+            <p>
+              Nie jesteśmy firmą, która eksperymentuje na Twojej działce. Korzystamy wyłącznie z certyfikowanych materiałów studziennych (atesty PZH) oraz ciężkiego, precyzyjnego sprzętu wiertniczego. Dzięki temu nasze realizacje są <strong>trwałe, bezpieczne i wydajne</strong> przez dziesięciolecia.
+            </p>
+            <p>
+              Działamy głównie w Kwidzynie i na terenie województw: pomorskiego, zachodniopomorskiego, kujawsko-pomorskiego oraz warmińsko-mazurskiego, dojeżdżając do 150 km od naszej siedziby.
+            </p>
+          </div>
+
+          <div class="pt-6 border-t border-gray-200/60 flex items-center gap-4">
+            <div class="w-12 h-12 bg-brand-dark rounded-full flex items-center justify-center text-white font-display font-bold text-xl shadow-lg">
+              W
+            </div>
+            <div>
+              <p class="font-bold text-brand-dark">Zespół Wierttrans</p>
+              <p class="text-sm text-gray-500">Specjaliści ds. odwiertów</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative reveal delay-100">
+          <div class="aspect-4/3 rounded-[3rem] overflow-hidden shadow-2xl relative">
+            <div class="absolute inset-0 bg-brand-dark/10 z-10"></div>
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Sprzęt wiertniczy" class="w-full h-full object-cover" />
+          </div>
+          
+          <div class="absolute -bottom-8 -left-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-white max-w-[240px] animate-float z-20 hidden md:block">
+            <div class="flex items-center gap-4 mb-2">
+              <div class="text-yellow-400 flex">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 font-medium">Sprzęt najwyższej klasy i zadowoleni klienci w całym regionie.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="lg:col-span-5 bg-brand-light p-8 md:p-12 rounded-3xl border border-gray-100 reveal delay-200">
-        <ul class="space-y-8">
-          <li class="flex flex-col">
-            <span class="text-brand-signal font-display text-5xl font-bold mb-2">100%</span>
-            <span class="font-bold text-brand-dark text-lg">Skupienia na jakości</span>
-            <span class="text-gray-600 text-sm mt-1">Używamy tylko atestowanych rur i niezawodnych pomp.</span>
-          </li>
-          <li class="flex flex-col">
-            <span class="text-brand-signal font-display text-5xl font-bold mb-2">150km</span>
-            <span class="font-bold text-brand-dark text-lg">Zasięg działania</span>
-            <span class="text-gray-600 text-sm mt-1">Dojedziemy do Ciebie z Kwidzyna i okolic.</span>
-          </li>
-          <li class="flex flex-col">
-            <span class="text-brand-signal font-display text-5xl font-bold mb-2">3w1</span>
-            <span class="font-bold text-brand-dark text-lg">Kompleksowość</span>
-            <span class="text-gray-600 text-sm mt-1">Odwiert, przyłącze i uzdatnianie wody przez jedną ekipę.</span>
-          </li>
-        </ul>
+      <div class="bg-brand-dark rounded-[3rem] p-10 md:p-16 shadow-2xl relative overflow-hidden mb-32 reveal">
+        <div class="absolute inset-0 bg-linear-to-br from-brand-signal/20 to-transparent opacity-30"></div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10 text-center divide-x divide-gray-700/50">
+          <div class="px-4">
+            <p class="font-display text-4xl md:text-5xl font-bold text-white mb-2">150<span class="text-brand-signal">+</span></p>
+            <p class="text-gray-400 font-medium text-sm md:text-base uppercase tracking-wider">Km zasięgu</p>
+          </div>
+          <div class="px-4">
+            <p class="font-display text-4xl md:text-5xl font-bold text-white mb-2">100<span class="text-brand-signal">%</span></p>
+            <p class="text-gray-400 font-medium text-sm md:text-base uppercase tracking-wider">Gwarancji Wody</p>
+          </div>
+          <div class="px-4">
+            <p class="font-display text-4xl md:text-5xl font-bold text-white mb-2">3</p>
+            <p class="text-gray-400 font-medium text-sm md:text-base uppercase tracking-wider">Fazy Projektu</p>
+          </div>
+          <div class="px-4">
+            <p class="font-display text-4xl md:text-5xl font-bold text-white mb-2">PZH</p>
+            <p class="text-gray-400 font-medium text-sm md:text-base uppercase tracking-wider">Atesty Rur</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <h2 class="font-display text-4xl font-bold text-brand-dark mb-4">Dlaczego my?</h2>
+        <p class="text-lg text-gray-600">Nie obiecujemy cudów. Obiecujemy rzetelną pracę, terminowość i brak ukrytych kosztów.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal delay-100">
+        
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-brand-signal/30 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-brand-light text-brand-signal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-brand-dark mb-3">Rozliczenie za efekt</h3>
+          <p class="text-gray-600 leading-relaxed text-sm">Płacisz tylko wtedy, gdy uzyskamy wodę. Jeśli odwiert będzie suchy – bierzemy to na siebie. Pełne bezpieczeństwo Twojej inwestycji.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-brand-signal/30 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-brand-light text-brand-signal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m14.7 6.3 1.6 1.6c.4.4.4 1 0 1.4l-3.1 3.1c-.4.4-1 .4-1.4 0l-1.6-1.6c-.4-.4-.4-1 0-1.4l3.1-3.1c.4-.4 1-.4 1.4 0Z"/><path d="m5.2 11.2-1.9 1.9c-.8.8-.8 2.1 0 2.8l3.1 3.1c.8.8 2.1.8 2.8 0l1.9-1.9"/><path d="m15.5 15.5 2.1-2.1c.8-.8 2.1-.8 2.8 0l1.4 1.4c.8.8.8 2.1 0 2.8l-2.1 2.1c-.8.8-2.1.8-2.8 0l-1.4-1.4c-.8-.8-.8-2.1 0-2.8Z"/><path d="m17 12-5 5"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-brand-dark mb-3">Własny park maszynowy</h3>
+          <p class="text-gray-600 leading-relaxed text-sm">Nie wynajmujemy sprzętu. Posiadamy własne, specjalistyczne wiertnice, co pozwala nam na elastyczność i brak opóźnień.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-brand-signal/30 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-brand-light text-brand-signal rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-brand-dark mb-3">Pełne doradztwo</h3>
+          <p class="text-gray-600 leading-relaxed text-sm">Od znalezienia żyły wodnej, przez wywiercenie studni, aż po dobór odpowiedniej pompy i montaż filtrów uzdatniających.</p>
+        </div>
+
       </div>
 
     </div>
   </main>
 </BaseLayout>
+
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+</style>

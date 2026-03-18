@@ -1,157 +1,286 @@
 ---
 // src/pages/uslugi.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Tablica FAQ dla ułatwienia zarządzania
+const faqs = [
+  { p: "Na jakim obszarze świadczycie usługi?", o: "Nasze usługi są dostępne na obszarze do 150 km od Kwidzyna. Nasz zasięg obejmuje województwa: pomorskie, zachodniopomorskie, kujawsko-pomorskie oraz warmińsko-mazurskie." },
+  { p: "Co to jest studnia głębinowa i jakie są jej zalety?", o: "To specjalistyczny odwiert pozwalający na dostęp do własnego, głębokiego źródła wody. Gwarantuje niezależność od sieci miejskiej, brak przerw w dostawach i potężne oszczędności finansowe w dłuższej perspektywie." },
+  { p: "Jak długo trwa proces wiercenia studni?", o: "Dla standardowego budynku jednorodzinnego zajmuje to zazwyczaj od 1 do 3 dni. Samo podłączenie i uzbrojenie studni kończymy zwykle w ciągu jednego dnia roboczego." },
+  { p: "Jaki jest koszt wywiercenia studni głębinowej?", o: "Wycena jest zawsze indywidualna, ponieważ zależy bezpośrednio od warunków geologicznych i głębokości odwiertu. Przygotowujemy ją całkowicie za darmo po wstępnej konsultacji." },
+  { p: "Czy dajecie gwarancję wody ze studni?", o: "Tak! To nasza największa przewaga. Rozliczamy się dopiero po pomyślnym uzyskaniu wody. Jeśli odwiert okaże się suchy – bierzemy ryzyko na siebie i nie naliczamy opłat." },
+  { p: "Czy mogę zainstalować system uzdatniania do obecnej studni?", o: "Oczywiście. Na podstawie wyników fizykochemicznych jesteśmy w stanie uzdatnić niemal każdą wodę, dobierając odpowiednie filtry, odżelaziacze i odmanganiacze." }
+];
 ---
 
-<BaseLayout title="Usługi | Wierttrans - Studnie, Pompy, Uzdatnianie">
-  <main class="pt-32 pb-24">
+<BaseLayout title="Nasze Usługi | Wierttrans - Studnie, Pompy, Uzdatnianie">
+  <main class="relative overflow-hidden bg-brand-light pb-24 min-h-screen">
     
-    <header class="max-w-7xl mx-auto px-4 mb-20 md:mb-32 text-center reveal">
-      <span class="text-brand-signal font-bold tracking-widest uppercase text-sm mb-4 block">
-        Nasza Oferta
-      </span>
-      <h1 class="font-display text-5xl md:text-7xl font-bold mb-8 tracking-tight text-brand-dark">
-        Kompleksowe <span class="text-brand-signal">Usługi.</span>
-      </h1>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
-        Od wizji lokalnej, przez precyzyjny odwiert, aż po czystą wodę w Twoim kranie i ekologiczne ciepło w domu. Zobacz, jak działamy krok po kroku.
-      </p>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none"></div>
+
+    <div class="absolute right-[-5%] top-[10%] -z-10 h-100 w-100 rounded-full bg-brand-signal opacity-[0.08] blur-[120px] mix-blend-multiply pointer-events-none"></div>
+    <div class="absolute left-[-10%] top-[60%] -z-10 h-125 w-125 rounded-full bg-blue-500 opacity-[0.06] blur-[150px] mix-blend-multiply pointer-events-none"></div>
+
+    <div class="pt-32 max-w-7xl mx-auto px-4 relative z-10">
       
-      <a href="/proces" class="inline-flex items-center px-8 py-4 bg-brand-dark text-white rounded-xl font-bold hover:bg-brand-signal transition-colors duration-300 shadow-lg shadow-brand-dark/20 transform hover:-translate-y-1 text-lg">
-        Zobacz nasz 10-etapowy proces
-        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7-7m7-7H3"></path></svg>
-      </a>
-    </header>
+      <header class="text-center max-w-3xl mx-auto mb-20 md:mb-24 reveal">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 text-brand-dark font-bold tracking-widest uppercase text-xs md:text-sm mb-6 shadow-sm">
+          <svg class="w-4 h-4 text-brand-signal" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Pełen pakiet
+        </span>
+        <h1 class="font-display text-5xl md:text-7xl font-bold text-brand-dark mb-8 tracking-tight leading-tight">
+          Kompleksowe <span class="text-brand-signal">Usługi.</span>
+        </h1>
+        <p class="text-xl text-gray-600 leading-relaxed mb-10">
+          Poznaj zakres naszych prac. Od precyzyjnego odwiertu, przez ekologiczne ogrzewanie, aż po stacje uzdatniania, które odmienią jakość Twojej wody.
+        </p>
+        <a href="/proces" class="inline-flex items-center px-8 py-4 bg-brand-dark text-white rounded-xl font-bold hover:bg-brand-signal transition-colors duration-300 shadow-xl shadow-brand-dark/20 transform hover:-translate-y-1 text-lg group">
+          Zobacz nasz 10-etapowy proces
+          <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </header>
 
-    <section id="studnie" class="py-24 bg-white border-t border-gray-100">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div class="reveal">
-            <h2 class="font-display text-4xl md:text-5xl font-bold text-brand-dark mb-6">Studnie Głębinowe</h2>
-            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-              Nasza firma specjalizuje się w profesjonalnym i kompleksowym wykonywaniu ujęć wody ze studni głębinowych. Działamy w sposób przejrzysty i przewidywalny dla klienta.
-            </p>
-            
-            <a href="/proces" class="inline-flex items-center text-brand-signal font-bold hover:text-brand-dark transition-colors mb-12 text-lg">
-              Sprawdź szczegóły wiercenia krok po kroku
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </a>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal delay-200">
-              <div class="col-span-1 sm:col-span-2 bg-brand-dark text-white p-10 rounded-3xl">
-                <h3 class="font-display text-3xl font-bold mb-4">Dla kogo wiercimy?</h3>
-                <p class="text-gray-400">Dostosowujemy nasze rozwiązania do różnych potrzeb i skali inwestycji.</p>
-              </div>
-              
-              <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
-                <h4 class="font-bold text-brand-dark text-xl mb-3">Osoby prywatne</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Wykopanie własnej studni jest często tańsze niż podłączenie do sieci. Idealne na niezależne źródło wody.</p>
-              </div>
-              <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
-                <h4 class="font-bold text-brand-dark text-xl mb-3">Gospodarstwa rolne</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Z własną studnią głębinową możesz łatwo nawadniać duże obszary, nie martwiąc się o wysokie koszty.</p>
-              </div>
-              <div class="col-span-1 sm:col-span-2 bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-brand-signal transition-colors">
-                <h4 class="font-bold text-brand-dark text-xl mb-3">Firmy i Przedsiębiorstwa</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Nasz nacisk na niezawodność w każdym aspekcie gwarantuje satysfakcję i bezpieczeństwo klientów biznesowych.</p>
-              </div>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32 reveal delay-100">
+        <a href="#studnie" class="block bg-white/80 backdrop-blur-sm p-8 rounded-3xl border border-gray-100 shadow-sm hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300 group">
+          <div class="w-16 h-16 bg-brand-light rounded-2xl flex items-center justify-center mb-6 text-brand-signal group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
           </div>
-          
-          <div class="reveal delay-100">
-            <div class="aspect-[4/5] bg-brand-light rounded-[3rem] p-8 relative overflow-hidden">
-               <img src="https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=2070&auto=format&fit=crop" alt="Praca w terenie" class="absolute inset-0 w-full h-full object-cover opacity-90 rounded-[3rem]" />
-               <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent rounded-[3rem]"></div>
-               <div class="absolute bottom-10 left-10 right-10">
-                  <h3 class="text-white font-display text-3xl font-bold mb-2">Ponad 150km zasięgu</h3>
-                  <p class="text-gray-300">Działamy na terenie Kwidzyna i sąsiednich województw.</p>
-               </div>
-            </div>
+          <h2 class="text-2xl font-display font-bold text-brand-dark mb-3 group-hover:text-brand-signal transition-colors">Studnie Głębinowe</h2>
+          <p class="text-gray-600 text-sm mb-4">Niezależne źródło czystej wody na Twojej działce.</p>
+        </a>
+        <a href="#pompy" class="block bg-white/80 backdrop-blur-sm p-8 rounded-3xl border border-gray-100 shadow-sm hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300 group">
+          <div class="w-16 h-16 bg-brand-light rounded-2xl flex items-center justify-center mb-6 text-brand-signal group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
-        </div>
+          <h2 class="text-2xl font-display font-bold text-brand-dark mb-3 group-hover:text-brand-signal transition-colors">Pompy Ciepła</h2>
+          <p class="text-gray-600 text-sm mb-4">Odwierty pionowe i montaż sond do ogrzewania.</p>
+        </a>
+        <a href="#uzdatnianie" class="block bg-white/80 backdrop-blur-sm p-8 rounded-3xl border border-gray-100 shadow-sm hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300 group">
+          <div class="w-16 h-16 bg-brand-light rounded-2xl flex items-center justify-center mb-6 text-brand-signal group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+          </div>
+          <h2 class="text-2xl font-display font-bold text-brand-dark mb-3 group-hover:text-brand-signal transition-colors">Uzdatnianie Wody</h2>
+          <p class="text-gray-600 text-sm mb-4">Filtry, badanie i systemy krystalizujące wodę.</p>
+        </a>
       </div>
-    </section>
 
-    <section id="pompy" class="py-24 bg-brand-light">
-      <div class="max-w-7xl mx-auto px-4 text-center">
-        <div class="max-w-3xl mx-auto mb-16 reveal">
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-brand-dark mb-6">Pompy Ciepła</h2>
-          <p class="text-lg text-gray-600 leading-relaxed">
-            Oferujemy kompleksowe usługi w zakresie wykonywania pionowych odwiertów dla gruntowych pomp ciepła, łącząc precyzję z ekologicznymi rozwiązaniami ogrzewania.
-          </p>
-        </div>
+      <div class="space-y-32">
         
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative reveal delay-100">
-          <div class="hidden md:block absolute top-1/2 left-8 right-8 h-0.5 bg-gray-200 -translate-y-1/2 z-0"></div>
-          
-          <div class="relative z-10 bg-white p-8 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100">
-            <div class="w-16 h-16 mx-auto bg-brand-dark text-white rounded-xl flex items-center justify-center font-bold text-2xl mb-6">1</div>
-            <h4 class="font-bold text-xl text-brand-dark">Projekt</h4>
-          </div>
-          <div class="relative z-10 bg-white p-8 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100">
-            <div class="w-16 h-16 mx-auto bg-brand-dark text-white rounded-xl flex items-center justify-center font-bold text-2xl mb-6">2</div>
-            <h4 class="font-bold text-xl text-brand-dark">Odwiert</h4>
-          </div>
-          <div class="relative z-10 bg-white p-8 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100">
-            <div class="w-16 h-16 mx-auto bg-brand-dark text-white rounded-xl flex items-center justify-center font-bold text-2xl mb-6">3</div>
-            <h4 class="font-bold text-xl text-brand-dark">Sondy</h4>
-          </div>
-          <div class="relative z-10 bg-white p-8 rounded-2xl shadow-xl shadow-brand-signal/20 border border-brand-signal border-opacity-30">
-            <div class="w-16 h-16 mx-auto bg-brand-signal text-white rounded-xl flex items-center justify-center font-bold text-2xl mb-6">4</div>
-            <h4 class="font-bold text-xl text-brand-dark">Próby Ciśnieniowe</h4>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="uzdatnianie" class="py-24 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col lg:flex-row gap-16 items-center">
-          
-          <div class="lg:w-1/2 reveal delay-100">
-            <h2 class="font-display text-4xl md:text-5xl font-bold text-brand-dark mb-6">Uzdatnianie Wody</h2>
-            <p class="text-lg text-gray-600 mb-10 leading-relaxed">
-              Zajmujemy się profesjonalnym doborem stacji uzdatniających. Pozbądź się niechcianych pierwiastków z wody studziennej w 3 prostych krokach.
+        <section id="studnie" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="reveal">
+            <h3 class="text-4xl font-display font-bold text-brand-dark mb-6">Studnie Głębinowe</h3>
+            <p class="text-lg text-gray-600 leading-relaxed mb-8">
+              Nasza firma specjalizuje się w profesjonalnym i kompleksowym wykonywaniu ujęć wody. Działamy w sposób przejrzysty i przewidywalny dla klienta, wykorzystując atestowane materiały, które przetrwają dekady.
             </p>
-            
             <div class="space-y-6">
-              <div class="bg-gray-50 p-6 rounded-2xl flex gap-6 items-center hover:bg-gray-100 transition-colors">
-                <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center flex-shrink-0 text-brand-signal font-bold text-xl">1</div>
-                <div>
-                  <h4 class="font-bold text-lg text-brand-dark mb-1">Badanie wody</h4>
-                  <p class="text-gray-600 text-sm">Konieczne jest wykonanie pełnego badania wody w wariancie poszerzonym.</p>
-                </div>
+              <div class="flex gap-4 items-start">
+                <div class="w-8 h-8 rounded-full bg-brand-signal/10 text-brand-signal flex items-center justify-center shrink-0 mt-1">1</div>
+                <div><strong class="text-brand-dark">Wizja lokalna:</strong> Analiza geologiczna i wybór miejsca zgodnie z prawem budowlanym.</div>
               </div>
-              <div class="bg-gray-50 p-6 rounded-2xl flex gap-6 items-center hover:bg-gray-100 transition-colors">
-                <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center flex-shrink-0 text-brand-signal font-bold text-xl">2</div>
-                <div>
-                  <h4 class="font-bold text-lg text-brand-dark mb-1">Dobór urządzeń</h4>
-                  <p class="text-gray-600 text-sm">W oparciu o wyniki badań wody, dobieramy odpowiednią stację uzdatniającą.</p>
-                </div>
+              <div class="flex gap-4 items-start">
+                <div class="w-8 h-8 rounded-full bg-brand-signal/10 text-brand-signal flex items-center justify-center shrink-0 mt-1">2</div>
+                <div><strong class="text-brand-dark">Wykonanie studni:</strong> Precyzyjny odwiert, instalacja rur atestowanych i obsypka żwirowa.</div>
               </div>
-              <div class="bg-brand-dark p-6 rounded-2xl flex gap-6 items-center text-white shadow-xl shadow-brand-dark/20 transform hover:-translate-y-1 transition-transform">
-                <div class="w-14 h-14 bg-brand-signal rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-xl">3</div>
-                <div>
-                  <h4 class="font-bold text-lg mb-1">Montaż</h4>
-                  <p class="text-gray-300 text-sm">Profesjonalnie wykonujemy montaż dobranych urządzeń i szkolimy z obsługi.</p>
-                </div>
+              <div class="flex gap-4 items-start">
+                <div class="w-8 h-8 rounded-full bg-brand-signal/10 text-brand-signal flex items-center justify-center shrink-0 mt-1">3</div>
+                <div><strong class="text-brand-dark">Pompowanie i podłączenie:</strong> Oczyszczanie, pomiary wydajności i finalny montaż osprzętu.</div>
               </div>
             </div>
           </div>
-
-          <div class="lg:w-1/2 reveal">
-            <div class="aspect-square bg-brand-light rounded-[3rem] p-8 relative overflow-hidden">
-              <div class="absolute -right-10 -top-10 w-64 h-64 bg-brand-signal/10 rounded-full blur-3xl"></div>
-              <div class="w-full h-full bg-white rounded-[2rem] shadow-xl flex flex-col items-center justify-center p-12 text-center relative z-10">
-                <svg class="w-24 h-24 text-brand-signal mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                <h3 class="font-display text-4xl font-bold text-brand-dark mb-4">Czysta i smaczna woda</h3>
-                <p class="text-gray-500 font-medium">Gwarancja bezpieczeństwa dla Twojej rodziny i instalacji.</p>
+          
+          <div class="relative reveal delay-100">
+            <div class="aspect-square rounded-[3rem] overflow-hidden shadow-2xl relative bg-gray-200">
+               <img src="https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=2070&auto=format&fit=crop" alt="Wiercenie studni głębinowej" class="w-full h-full object-cover" />
+               <div class="absolute inset-0 bg-brand-dark/10"></div>
+            </div>
+            <div class="absolute -bottom-8 -left-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-white max-w-[220px] animate-float z-20 hidden md:block">
+              <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
               </div>
+              <p class="font-display font-bold text-brand-dark text-xl leading-tight mb-1">Gwarancja</p>
+              <p class="text-sm text-gray-500 font-medium">Płacisz tylko za wodę.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-brand-dark rounded-[3rem] p-10 md:p-16 border border-gray-800 shadow-2xl relative overflow-hidden reveal">
+          <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[length:32px_32px]"></div>
+          <h3 class="text-3xl md:text-4xl font-display font-bold text-white mb-12 text-center relative z-10">Dla kogo wiercimy?</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+            <div class="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-brand-signal transition-colors">
+              <h4 class="text-xl font-bold text-white mb-4">Osoby prywatne</h4>
+              <p class="text-gray-400 text-sm leading-relaxed">Wykopanie własnej studni jest często tańsze niż podłączenie do miejskiej sieci. Idealne na niezależne źródło wody dla Twojego domu.</p>
+            </div>
+            <div class="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-brand-signal transition-colors">
+              <h4 class="text-xl font-bold text-white mb-4">Gospodarstwa rolne</h4>
+              <p class="text-gray-400 text-sm leading-relaxed">Rozwiązania dla wymagających. Z własną studnią głębinową możesz łatwo nawadniać duże obszary, unikając kosztów wodociągów.</p>
+            </div>
+            <div class="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-brand-signal transition-colors">
+              <h4 class="text-xl font-bold text-white mb-4">Firmy i Przemysł</h4>
+              <p class="text-gray-400 text-sm leading-relaxed">Nasz nacisk na niezawodność, jakość i atestowane materiały gwarantuje bezpieczeństwo ciągłości procesów w Twojej firmie.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="pompy" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="relative reveal delay-100 order-2 lg:order-1">
+            <div class="aspect-square rounded-[3rem] overflow-hidden shadow-2xl relative bg-gray-200">
+               <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=2070&auto=format&fit=crop" alt="Odwierty pod pompy ciepła" class="w-full h-full object-cover" />
+               <div class="absolute inset-0 bg-brand-dark/10"></div>
+            </div>
+            <div class="absolute -top-8 -right-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-white max-w-[220px] animate-float-delayed z-20 hidden md:block">
+              <div class="w-12 h-12 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <p class="font-display font-bold text-brand-dark text-xl leading-tight mb-1">Darmowe<br/>Ogrzewanie</p>
             </div>
           </div>
 
-        </div>
+          <div class="reveal order-1 lg:order-2">
+            <h3 class="text-4xl font-display font-bold text-brand-dark mb-6">Pompy Ciepła</h3>
+            <p class="text-lg text-gray-600 leading-relaxed mb-8">
+              Specjalizujemy się w wykonaniu tzw. dolnego źródła ciepła. Realizujemy pionowe odwierty łącząc wiertniczą precyzję z nowoczesnymi, ekologicznymi rozwiązaniami.
+            </p>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+                <div class="text-brand-signal font-bold text-xl mb-1">01.</div>
+                <p class="font-bold text-brand-dark">Projekt</p>
+              </div>
+              <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+                <div class="text-brand-signal font-bold text-xl mb-1">02.</div>
+                <p class="font-bold text-brand-dark">Odwiert</p>
+              </div>
+              <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+                <div class="text-brand-signal font-bold text-xl mb-1">03.</div>
+                <p class="font-bold text-brand-dark">Sondy</p>
+              </div>
+              <div class="bg-brand-dark text-white p-5 rounded-2xl shadow-md">
+                <div class="text-brand-signal font-bold text-xl mb-1">04.</div>
+                <p class="font-bold">Próby ciśnieniowe</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="uzdatnianie" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="reveal">
+            <h3 class="text-4xl font-display font-bold text-brand-dark mb-6">Uzdatnianie Wody</h3>
+            <p class="text-lg text-gray-600 leading-relaxed mb-8">
+              Pozbądź się żelaza, manganu i twardości wody. Posiadamy doświadczenie, dzięki któremu z niemal każdej studni jesteśmy w stanie wyciągnąć krystalicznie czystą wodę.
+            </p>
+            <div class="space-y-4">
+              <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                <svg class="w-8 h-8 text-brand-signal shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                <p class="font-medium text-brand-dark">Pełne badanie laboratoryjne</p>
+              </div>
+              <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                <svg class="w-8 h-8 text-brand-signal shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01"/></svg>
+                <p class="font-medium text-brand-dark">Indywidualny dobór urządzeń</p>
+              </div>
+              <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                <svg class="w-8 h-8 text-brand-signal shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg>
+                <p class="font-medium text-brand-dark">Profesjonalny montaż i szkolenie</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="relative reveal delay-100">
+            <div class="aspect-square rounded-[3rem] overflow-hidden shadow-2xl relative bg-gray-200">
+               <img src="https://images.unsplash.com/photo-1548839140-29a749e1bc4e?q=80&w=2070&auto=format&fit=crop" alt="Stacja uzdatniania wody" class="w-full h-full object-cover" />
+               <div class="absolute inset-0 bg-brand-dark/10"></div>
+            </div>
+            <div class="absolute -bottom-8 -right-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-white max-w-[220px] animate-float z-20 hidden md:block">
+              <div class="w-12 h-12 bg-cyan-50 text-cyan-500 rounded-full flex items-center justify-center mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <p class="font-display font-bold text-brand-dark text-xl leading-tight mb-1">Czystość i<br/>Bezpieczeństwo</p>
+            </div>
+          </div>
+        </section>
+
       </div>
-    </section>
+
+      <section class="mt-40 max-w-4xl mx-auto reveal">
+        <div class="text-center mb-12">
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-brand-dark mb-4">F.A.Q.</h2>
+          <p class="text-xl text-gray-600">Rozwiewamy wszelkie wątpliwości przed wierceniem.</p>
+        </div>
+
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden transition-colors hover:border-brand-signal/50 shadow-sm">
+              <button class="faq-button w-full px-6 py-6 text-left flex justify-between items-center focus:outline-none cursor-pointer group">
+                <span class="font-bold text-lg md:text-xl text-brand-dark pr-4 group-hover:text-brand-signal transition-colors">{faq.p}</span>
+                <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center shrink-0">
+                  <svg class="faq-icon w-5 h-5 text-brand-signal transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                </div>
+              </button>
+              <div class="faq-answer grid transition-all duration-300" style="grid-template-rows: 0fr;">
+                <div class="overflow-hidden">
+                  <p class="px-6 pb-6 pt-2 text-gray-600 leading-relaxed text-lg">
+                    {faq.o}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    </div>
   </main>
 </BaseLayout>
+
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-float-delayed {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+</style>
+
+<script>
+  // Zabezpieczony skrypt inicjujący
+  const initFAQ = () => {
+    const faqButtons = document.querySelectorAll('.faq-button');
+
+    faqButtons.forEach(button => {
+      // Zabezpieczenie przed podwójnym przypisaniem zdarzenia
+      if ((button as HTMLElement).dataset.loaded) return;
+      (button as HTMLElement).dataset.loaded = 'true';
+
+      button.addEventListener('click', () => {
+        const answer = button.nextElementSibling as HTMLElement;
+        const icon = button.querySelector('.faq-icon') as HTMLElement;
+        const isOpen = answer.style.gridTemplateRows === '1fr';
+
+        // Zamknij wszystkie inne otwarte
+        document.querySelectorAll('.faq-answer').forEach(el => {
+          (el as HTMLElement).style.gridTemplateRows = '0fr';
+        });
+        document.querySelectorAll('.faq-icon').forEach(el => {
+          (el as HTMLElement).style.transform = 'rotate(0deg)';
+        });
+
+        // Otwórz kliknięty
+        if (!isOpen) {
+          answer.style.gridTemplateRows = '1fr';
+          icon.style.transform = 'rotate(45deg)'; // Zmienia plus w 'X'
+        }
+      });
+    });
+  };
+
+  // Uruchomienie skryptu przy standardowym ładowaniu strony
+  initFAQ();
+  
+  // Uruchomienie skryptu (jeśli jest aktywne) dla Astro View Transitions
+  document.addEventListener('astro:page-load', initFAQ);
+</script>

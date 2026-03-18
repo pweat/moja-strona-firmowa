@@ -3,7 +3,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchDatoCMS } from '../../lib/datocms';
 
-// 1. Zdefiniowanie kształtu danych
 interface Artykul {
   tytu: string;
   slug: string;
@@ -15,8 +14,6 @@ interface Artykul {
   };
 }
 
-// 2. FUNKCJA getStaticPaths() - to ona rozwiązuje Twój błąd!
-// Pobiera listę wszystkich artykułów z CMS i mówi Astro, jakie podstrony wygenerować.
 export async function getStaticPaths() {
   const query = `
     {
@@ -36,60 +33,104 @@ export async function getStaticPaths() {
   const data = await fetchDatoCMS(query);
   const artykuly: Artykul[] = data.allArtykuls;
 
-  // Zwracamy tablicę z parametrami dla każdej podstrony
   return artykuly.map((artykul) => ({
     params: { slug: artykul.slug },
     props: { artykul },
   }));
 }
 
-// 3. Odbieramy dane dla TEGO JEDNEGO konkretnego artykułu
 const { artykul } = Astro.props;
+
+// --- DYNAMICZNE OBLICZANIE CZASU CZYTANIA ---
+// 1. Łączymy zajawkę i treść artykułu w jeden długi ciąg tekstu
+const pelnyTekst = `${artykul.zajawka} ${artykul.tre}`;
+// 2. Liczymy wszystkie słowa (rozdzielając tekst po spacjach)
+const liczbaSlow = pelnyTekst.trim().split(/\s+/).length;
+// 3. Średnie tempo czytania to 200 słów/min. Dzielimy, zaokrąglamy w górę (Math.ceil) 
+// i upewniamy się, że zawsze pokaże minimum 1 minutę (Math.max).
+const czasCzytania = Math.max(1, Math.ceil(liczbaSlow / 200));
 ---
 
 <BaseLayout title={`${artykul.tytu} | Baza Wiedzy Wierttrans`}>
-  <main class="pt-32 pb-24 px-4">
+  <main class="relative overflow-hidden bg-brand-light min-h-screen pb-24">
     
-    <article class="max-w-4xl mx-auto">
-      
-      <header class="mb-12 text-center">
-        <span class="text-brand-signal font-bold tracking-wider uppercase text-sm mb-6 block">
-          Poradnik Eksperta
-        </span>
-        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-brand-dark mb-8 leading-tight">
-          {artykul.tytu}
-        </h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          {artykul.zajawka}
-        </p>
-      </header>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none z-0"></div>
+    <div class="absolute left-[50%] top-[40vh] -translate-x-1/2 z-0 h-125 w-[800px] rounded-full bg-brand-signal opacity-[0.08] blur-[100px] mix-blend-multiply pointer-events-none"></div>
+    <div class="absolute right-[-10%] top-[60vh] z-0 h-100 w-100 rounded-full bg-blue-500 opacity-[0.06] blur-[120px] mix-blend-multiply pointer-events-none"></div>
 
-      <div class="w-full aspect-video rounded-3xl overflow-hidden mb-16 bg-gray-100 shadow-xl shadow-gray-200/50">
+    <div class="fixed top-28 left-4 md:left-12 z-50 reveal hidden md:block">
+      <a href="/blog" class="inline-flex items-center justify-center px-6 py-3 bg-white/80 backdrop-blur-md border border-white text-brand-dark font-bold rounded-2xl shadow-lg shadow-gray-200/50 hover:bg-brand-dark hover:text-white transition-all duration-300 group">
+        <svg class="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Wróć do bazy wiedzy
+      </a>
+    </div>
+
+    <div class="md:hidden pt-28 px-4 relative z-20 reveal">
+      <a href="/blog" class="inline-flex items-center text-brand-dark font-bold hover:text-brand-signal transition-colors">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Wróć do bazy wiedzy
+      </a>
+    </div>
+
+    <div class="pt-8 md:pt-12 max-w-7xl mx-auto px-4 relative z-10">
+      <div class="relative w-full h-[40vh] md:h-[60vh] rounded-[3rem] overflow-hidden shadow-2xl reveal bg-gray-900">
         <img 
           src={artykul.zdjCieGWne.url} 
           alt={artykul.zdjCieGWne.alt || artykul.tytu}
-          class="w-full h-full object-cover"
+          class="absolute inset-0 w-full h-full object-cover opacity-90"
         />
+        <div class="absolute inset-0 bg-linear-to-t from-brand-dark/80 via-brand-dark/10 to-transparent"></div>
       </div>
+    </div>
 
-      <div class="max-w-3xl mx-auto">
-        <div class="text-lg md:text-xl text-gray-800 leading-relaxed space-y-8 font-sans">
-          <p class="whitespace-pre-line">
-            {artykul.tre}
+    <div class="max-w-4xl mx-auto px-4 relative z-20 -mt-24 md:-mt-32 reveal delay-100">
+      
+      <article class="bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[3rem] p-8 md:p-16 shadow-2xl shadow-brand-dark/10 relative overflow-hidden">
+        
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-white rounded-full blur-3xl opacity-80 pointer-events-none"></div>
+
+        <div class="relative z-10">
+          
+          <header class="mb-12 text-center border-b border-gray-200/60 pb-12">
+            <span class="inline-block px-4 py-2 bg-brand-signal/10 text-brand-signal text-xs md:text-sm font-bold uppercase tracking-widest rounded-xl mb-6 shadow-sm border border-brand-signal/20">
+              Poradnik Eksperta
+            </span>
+            <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-brand-dark mb-8 leading-tight">
+              {artykul.tytu}
+            </h1>
+            
+            <div class="flex items-center justify-center gap-4 mt-8">
+              <div class="w-12 h-12 bg-brand-dark rounded-full flex items-center justify-center text-white font-display font-bold text-xl shadow-md">
+                W
+              </div>
+              <div class="text-left">
+                <p class="font-bold text-brand-dark leading-none">Eksperci Wierttrans</p>
+                <p class="text-sm text-gray-500 mt-1">Czas czytania: ~{czasCzytania} min</p>
+              </div>
+            </div>
+          </header>
+
+          <p class="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-10 text-center">
+            {artykul.zajawka}
           </p>
+
+          <div class="prose prose-lg md:prose-xl prose-gray max-w-none text-gray-800 leading-relaxed whitespace-pre-line">
+            {artykul.tre}
+          </div>
+
         </div>
-      </div>
+      </article>
 
-      <div class="max-w-3xl mx-auto mt-20 pt-10 border-t border-gray-200">
-        <a href="/blog" class="inline-flex items-center text-brand-dark font-medium hover:text-brand-signal transition-colors">
-          <svg width="20" height="20" class="mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-          </svg>
-          Wróć do listy artykułów
-        </a>
-      </div>
+    </div>
 
-    </article>
-    
+    <div class="mt-24 text-center reveal">
+      <h3 class="text-3xl font-display font-bold text-brand-dark mb-6">Masz pytania po lekturze?</h3>
+      <p class="text-lg text-gray-600 mb-8">Nasi specjaliści chętnie rozwieją Twoje wątpliwości. Skonsultuj się z nami za darmo.</p>
+      <a href="/kontakt" class="inline-flex items-center px-8 py-4 bg-brand-dark text-white rounded-xl font-bold hover:bg-brand-signal transition-colors duration-300 shadow-xl shadow-brand-dark/20 transform hover:-translate-y-1 group">
+        Skontaktuj się z nami
+        <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+
   </main>
 </BaseLayout>

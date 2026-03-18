@@ -3,7 +3,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchDatoCMS } from '../../lib/datocms';
 
-// 1. Zdefiniowanie kształtu danych
 interface Realizacja {
   id: string;
   tytul: string;
@@ -13,9 +12,12 @@ interface Realizacja {
     url: string;
     alt: string;
   };
+  galeria: {
+    url: string;
+    alt: string;
+  }[];
 }
 
-// 2. FUNKCJA getStaticPaths() - to ona tworzy podstrony!
 export async function getStaticPaths() {
   const query = `
     {
@@ -27,6 +29,10 @@ export async function getStaticPaths() {
           url
           alt
         }
+        galeria {
+          url
+          alt
+        }
       }
     }
   `;
@@ -34,55 +40,226 @@ export async function getStaticPaths() {
   const data = await fetchDatoCMS(query);
   const realizacje: Realizacja[] = data.allRealizacjas;
 
-  // Zwracamy tablicę z "parametrami" (tutaj podajemy slug z CMS-a)
-  // oraz "propsami" (czyli wszystkimi danymi dla tej konkretnej strony)
   return realizacje.map((projekt) => ({
     params: { slug: projekt.slug },
     props: { projekt },
   }));
 }
 
-// 3. Odbieramy propsy (dane) dla TEJ JEDNEJ konkretnej realizacji
 const { projekt } = Astro.props;
 ---
 
 <BaseLayout title={`${projekt.tytul} | Realizacje Wierttrans`}>
-  <main class="pt-24 pb-20">
+  <main class="relative overflow-hidden bg-brand-light min-h-screen pb-24">
     
-    <div class="w-full h-[50vh] md:h-[70vh] relative bg-gray-900">
-      <img 
-        src={projekt.zdjCieGWne.url} 
-        alt={projekt.zdjCieGWne.alt || projekt.tytul}
-        class="w-full h-full object-cover opacity-80"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
-      
-      <div class="absolute bottom-0 left-0 w-full p-8 md:p-16">
-        <div class="max-w-4xl mx-auto">
-          <span class="text-brand-signal font-bold tracking-widest uppercase text-sm mb-4 block">
-            Realizacja
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none z-0"></div>
+    <div class="absolute left-[50%] top-[40vh] -translate-x-1/2 z-0 h-[500px] w-[800px] rounded-full bg-brand-signal opacity-[0.08] blur-[100px] mix-blend-multiply pointer-events-none"></div>
+    <div class="absolute right-[-10%] top-[60vh] z-0 h-[400px] w-[400px] rounded-full bg-blue-500 opacity-[0.06] blur-[120px] mix-blend-multiply pointer-events-none"></div>
+
+    <div class="fixed top-28 left-4 md:left-12 z-50 reveal hidden md:block">
+      <a href="/realizacje" class="inline-flex items-center justify-center px-6 py-3 bg-white/80 backdrop-blur-md border border-white text-brand-dark font-bold rounded-2xl shadow-lg shadow-gray-200/50 hover:bg-brand-dark hover:text-white transition-all duration-300 group">
+        <svg class="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Wróć do projektów
+      </a>
+    </div>
+
+    <div class="md:hidden pt-28 px-4 relative z-20 reveal">
+      <a href="/realizacje" class="inline-flex items-center text-brand-dark font-bold hover:text-brand-signal transition-colors">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Wróć do projektów
+      </a>
+    </div>
+
+    <div class="pt-8 md:pt-12 max-w-7xl mx-auto px-4 relative z-10">
+      <div class="relative w-full h-[50vh] md:h-[65vh] rounded-[3rem] overflow-hidden shadow-2xl reveal bg-gray-900">
+        <img 
+          src={projekt.zdjCieGWne.url} 
+          alt={projekt.zdjCieGWne.alt || projekt.tytul}
+          class="absolute inset-0 w-full h-full object-cover opacity-90"
+        />
+        <div class="absolute inset-0 bg-linear-to-t from-brand-dark/90 via-brand-dark/20 to-transparent"></div>
+        
+        <div class="absolute bottom-24 md:bottom-32 left-8 right-8 md:left-16 max-w-3xl">
+          <span class="inline-block px-4 py-2 bg-brand-signal text-white text-xs md:text-sm font-bold uppercase tracking-widest rounded-xl mb-4 shadow-lg">
+            Realizacja Wierttrans
           </span>
-          <h1 class="text-white font-display text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg">
+          <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg leading-tight">
             {projekt.tytul}
           </h1>
         </div>
       </div>
     </div>
 
-    <div class="max-w-4xl mx-auto px-4 mt-16 md:mt-24">
-      <div class="prose prose-lg md:prose-xl prose-gray max-w-none">
-        <p class="whitespace-pre-line text-gray-700 leading-relaxed">
-          {projekt.opis}
-        </p>
-      </div>
+    <div class="max-w-5xl mx-auto px-4 relative z-20 -mt-16 md:-mt-24 reveal delay-100">
       
-      <div class="mt-20 pt-10 border-t border-gray-200">
-        <a href="/realizacje" class="inline-flex items-center text-brand-dark font-medium hover:text-brand-signal transition-colors">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          Wróć do wszystkich realizacji
-        </a>
+      <div class="bg-white/70 backdrop-blur-2xl border border-white/60 rounded-[3rem] p-8 md:p-16 shadow-2xl shadow-brand-dark/10 relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-white rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+
+        <div class="relative z-10">
+          
+          <div class="flex items-center gap-4 mb-10 pb-8 border-b border-gray-200/60">
+            <div class="w-16 h-16 bg-white/90 shadow-sm text-brand-signal rounded-2xl flex items-center justify-center shrink-0">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+            </div>
+            <div>
+              <h2 class="text-2xl font-display font-bold text-brand-dark">Opis Inwestycji</h2>
+              <p class="text-gray-500 text-sm">Szczegóły techniczne i zakres prac</p>
+            </div>
+          </div>
+
+          <div class="prose prose-lg md:prose-xl prose-gray max-w-none text-gray-800 leading-relaxed whitespace-pre-line font-medium mb-12">
+            {projekt.opis}
+          </div>
+
+          {projekt.galeria && projekt.galeria.length > 0 && (
+            <div class="pt-12 border-t border-gray-200/60">
+              <div class="flex items-center justify-between mb-8">
+                <h3 class="font-display text-2xl font-bold text-brand-dark">Galeria zdjęć</h3>
+                <span class="text-gray-500 font-medium bg-white/80 px-4 py-2 rounded-xl border border-gray-100 shadow-sm">Zdj: {projekt.galeria.length}</span>
+              </div>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {projekt.galeria.map((zdjecie) => (
+                  <div class="relative aspect-square rounded-[2rem] overflow-hidden shadow-md shadow-gray-200/50 border border-white bg-white group cursor-pointer">
+                    <img 
+                      src={zdjecie.url} 
+                      alt={zdjecie.alt || "Zdjęcie z galerii"} 
+                      class="gallery-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    />
+                    <div class="absolute inset-0 bg-brand-dark/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                      <div class="w-12 h-12 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+        </div>
       </div>
+
     </div>
-    
+
+    <div class="mt-24 text-center reveal">
+      <h3 class="text-3xl font-display font-bold text-brand-dark mb-6">Podoba Ci się ta realizacja?</h3>
+      <a href="/kontakt" class="inline-flex items-center px-8 py-4 bg-brand-dark text-white rounded-xl font-bold hover:bg-brand-signal transition-colors duration-300 shadow-xl shadow-brand-dark/20 transform hover:-translate-y-1 group">
+        Zbudujmy Twoją studnię
+        <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+
   </main>
+
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-brand-dark/60 backdrop-blur-2xl hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300">
+    
+    <button id="lightbox-close" class="absolute top-6 right-6 md:top-10 md:right-10 text-white/70 hover:text-brand-signal transition-colors p-2 z-10">
+      <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+
+    <button id="lightbox-prev" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 md:p-4 z-10 hidden">
+      <svg class="w-10 h-10 md:w-14 md:h-14 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+
+    <button id="lightbox-next" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 md:p-4 z-10 hidden">
+      <svg class="w-10 h-10 md:w-14 md:h-14 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <div class="relative w-full h-full flex items-center justify-center p-4 md:p-16 pointer-events-none">
+      <img id="lightbox-img" src="" alt="Powiększone zdjęcie" class="max-h-full max-w-full object-contain rounded-2xl shadow-2xl pointer-events-auto transition-opacity duration-200" />
+    </div>
+
+  </div>
+
 </BaseLayout>
+
+<script>
+  const initLightbox = () => {
+    const galleryImages = document.querySelectorAll('.gallery-image');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
+
+    if (!lightbox || !lightboxImg || galleryImages.length === 0 || lightbox.dataset.loaded) return;
+    lightbox.dataset.loaded = 'true';
+
+    const imageUrls = Array.from(galleryImages).map(img => (img as HTMLImageElement).src);
+    let currentIndex = 0;
+
+    const updateImage = () => {
+      lightboxImg.style.opacity = '0';
+      setTimeout(() => {
+        lightboxImg.src = imageUrls[currentIndex];
+        lightboxImg.style.opacity = '1';
+      }, 200);
+    };
+
+    const nextImage = (e?: Event) => {
+      if (e) e.stopPropagation();
+      currentIndex = (currentIndex + 1) % imageUrls.length;
+      updateImage();
+    };
+
+    const prevImage = (e?: Event) => {
+      if (e) e.stopPropagation();
+      currentIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
+      updateImage();
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.add('opacity-0');
+      setTimeout(() => {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        lightboxImg.src = '';
+        document.body.style.overflow = '';
+      }, 300);
+    };
+
+    galleryImages.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        currentIndex = index;
+        lightboxImg.src = imageUrls[currentIndex];
+        lightboxImg.style.opacity = '1';
+        
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        
+        if (imageUrls.length > 1) {
+          prevBtn?.classList.remove('hidden');
+          nextBtn?.classList.remove('hidden');
+        }
+
+        setTimeout(() => {
+          lightbox.classList.remove('opacity-0');
+        }, 10);
+        
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    nextBtn?.addEventListener('click', nextImage);
+    prevBtn?.addEventListener('click', prevImage);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || (e.target as HTMLElement).classList.contains('pointer-events-none')) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('hidden')) return;
+      
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight' && imageUrls.length > 1) nextImage();
+      if (e.key === 'ArrowLeft' && imageUrls.length > 1) prevImage();
+    });
+  };
+
+  initLightbox();
+  document.addEventListener('astro:page-load', initLightbox);
+</script>
