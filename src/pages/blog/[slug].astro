@@ -2,6 +2,7 @@
 // src/pages/blog/[slug].astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchDatoCMS } from '../../lib/datocms';
+import { marked } from 'marked';
 
 interface Artykul {
   tytu: string;
@@ -17,7 +18,7 @@ interface Artykul {
 export async function getStaticPaths() {
   const query = `
     {
-      allArtykuls {
+      allArtykuls(first: 100) {
         tytu
         slug
         zajawka
@@ -41,17 +42,27 @@ export async function getStaticPaths() {
 
 const { artykul } = Astro.props;
 
-// --- DYNAMICZNE OBLICZANIE CZASU CZYTANIA ---
-// 1. Łączymy zajawkę i treść artykułu w jeden długi ciąg tekstu
+// Dynamiczne obliczanie czasu czytania
 const pelnyTekst = `${artykul.zajawka} ${artykul.tre}`;
-// 2. Liczymy wszystkie słowa (rozdzielając tekst po spacjach)
 const liczbaSlow = pelnyTekst.trim().split(/\s+/).length;
-// 3. Średnie tempo czytania to 200 słów/min. Dzielimy, zaokrąglamy w górę (Math.ceil) 
-// i upewniamy się, że zawsze pokaże minimum 1 minutę (Math.max).
 const czasCzytania = Math.max(1, Math.ceil(liczbaSlow / 200));
+
+// Tłumaczymy Markdown na HTML
+const treHtml = marked.parse(artykul.tre, { breaks: true, gfm: true });
+
+// --- LOGIKA SEO DLA TEJ PODSTRONY ---
+// Wykorzystujemy "Zajawkę" jako opis do Google (ucinamy do ok. 150 znaków w razie gdyby była bardzo długa)
+const seoDescription = artykul.zajawka.replace(/\n/g, ' ').slice(0, 150) + (artykul.zajawka.length > 150 ? '...' : '');
+
+// Pobieramy zdjęcie główne i prosimy serwer DatoCMS o wykadrowanie go do idealnych proporcji Facebooka/Google
+const seoImage = `${artykul.zdjCieGWne.url}?w=1200&h=630&fit=crop&q=80`;
 ---
 
-<BaseLayout title={`${artykul.tytu} | Baza Wiedzy Wierttrans`}>
+<BaseLayout 
+  title={`${artykul.tytu} | Baza Wiedzy Wierttrans`}
+  description={seoDescription}
+  image={seoImage}
+>
   <main class="relative overflow-hidden bg-brand-light min-h-screen pb-24">
     
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none z-0"></div>
@@ -75,15 +86,15 @@ const czasCzytania = Math.max(1, Math.ceil(liczbaSlow / 200));
     <div class="pt-8 md:pt-12 max-w-7xl mx-auto px-4 relative z-10">
       <div class="relative w-full h-[40vh] md:h-[60vh] rounded-[3rem] overflow-hidden shadow-2xl reveal bg-gray-900">
         <img 
-          src={artykul.zdjCieGWne.url} 
+          src={`${artykul.zdjCieGWne.url}?auto=format&w=1920&q=80`} 
           alt={artykul.zdjCieGWne.alt || artykul.tytu}
-          class="absolute inset-0 w-full h-full object-cover opacity-90"
+          class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-1000 hover:scale-105"
         />
         <div class="absolute inset-0 bg-linear-to-t from-brand-dark/80 via-brand-dark/10 to-transparent"></div>
       </div>
     </div>
 
-    <div class="max-w-4xl mx-auto px-4 relative z-20 -mt-24 md:-mt-32 reveal delay-100">
+    <div class="max-w-5xl mx-auto px-4 relative z-20 -mt-24 md:-mt-32 reveal delay-100">
       
       <article class="bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[3rem] p-8 md:p-16 shadow-2xl shadow-brand-dark/10 relative overflow-hidden">
         
@@ -104,19 +115,24 @@ const czasCzytania = Math.max(1, Math.ceil(liczbaSlow / 200));
                 W
               </div>
               <div class="text-left">
-                <p class="font-bold text-brand-dark leading-none">Eksperci Wierttrans</p>
+                <p class="font-bold text-brand-dark leading-none">Wierttrans</p>
                 <p class="text-sm text-gray-500 mt-1">Czas czytania: ~{czasCzytania} min</p>
               </div>
             </div>
           </header>
 
-          <p class="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-10 text-center">
+          <p class="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-12 text-center max-w-4xl mx-auto">
             {artykul.zajawka}
           </p>
 
-          <div class="prose prose-lg md:prose-xl prose-gray max-w-none text-gray-800 leading-relaxed whitespace-pre-line">
-            {artykul.tre}
-          </div>
+          <div 
+            class="prose prose-lg md:prose-xl max-w-none text-gray-800 leading-relaxed
+                   prose-headings:font-display prose-headings:font-bold prose-headings:text-brand-dark 
+                   prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl
+                   prose-a:text-brand-signal prose-a:no-underline hover:prose-a:underline
+                   prose-li:marker:text-brand-signal prose-strong:text-brand-dark prose-strong:font-bold"
+            set:html={treHtml}
+          ></div>
 
         </div>
       </article>

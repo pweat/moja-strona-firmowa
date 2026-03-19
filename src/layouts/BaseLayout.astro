@@ -5,16 +5,49 @@ import Header from '../components/global/Header.astro';
 import Footer from '../components/global/Footer.astro';
 import { ClientRouter } from 'astro:transitions';
 
-const { title = "Moja Firma", description = "Nowoczesna strona internetowa" } = Astro.props;
+// 1. Zdefiniowaliśmy, jakie dane ten layout może przyjmować od innych podstron
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+// 2. Ustawiamy potężne, domyślne wartości dla SEO (jeśli podstrona ich nie poda)
+const { 
+  title = "Wierttrans | Studnie Głębinowe i Pompy Ciepła", 
+  description = "Profesjonalne studnie głębinowe, odwierty pod pompy ciepła i systemy uzdatniania wody. Działamy do 150 km od Kwidzyna. Rozliczamy się za efekt - 100% gwarancji wody!",
+  image = "/og-image.jpg" // Domyślne zdjęcie (zaraz Ci powiem, jak je dodać)
+} = Astro.props;
+
+// 3. Generujemy aktualny, absolutny adres URL (np. https://wierttrans.pl/kontakt)
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
+// 4. Upewniamy się, że ścieżka do zdjęcia jest absolutna (wymagane przez Facebooka)
+const socialImageURL = new URL(image, Astro.site || Astro.url);
 ---
 
 <html lang="pl">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:site_name" content="Wierttrans" />
+    <meta property="og:locale" content="pl_PL" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
     
     <ClientRouter />
     
