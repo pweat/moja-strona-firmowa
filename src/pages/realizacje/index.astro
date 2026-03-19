@@ -69,10 +69,6 @@ const pozostaleProjekty = projekty.slice(1);
             Przemówmy <span class="text-brand-signal">czynami.</span>
           </h1>
         </div>
-        <div class="shrink-0 mb-2">
-          <p class="text-gray-500 font-medium">Zrealizowanych projektów w bazie:</p>
-          <p class="font-display text-4xl font-bold text-brand-dark">{projekty.length + szybkieRealizacje.length}</p>
-        </div>
       </header>
 
       {flagowyProjekt && (
@@ -98,21 +94,32 @@ const pozostaleProjekty = projekty.slice(1);
       {pozostaleProjekty.length > 0 && (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
           {pozostaleProjekty.map((projekt, index) => (
-            <a href={`/realizacje/${projekt.slug}`} class={`group block relative overflow-hidden rounded-[2.5rem] border border-white/60 shadow-xl shadow-gray-200/30 bg-white/50 backdrop-blur-sm aspect-4/3 reveal delay-${(index % 3) * 100}`}>
-              <img 
-                src={`${projekt.zdjCieGWne.url}?auto=format&w=800&q=75`} 
-                alt={projekt.zdjCieGWne.alt || projekt.tytul}
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div class="absolute inset-0 bg-linear-to-t from-brand-dark/95 via-brand-dark/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
+            <a 
+              href={`/realizacje/${projekt.slug}`} 
+              class={`group flex flex-col bg-white/90 backdrop-blur-xl border border-white/60 rounded-[3rem] overflow-hidden shadow-2xl shadow-brand-dark/10 transition-all duration-300 hover:scale-105 hover:shadow-brand-signal/20 reveal delay-${(index % 3) * 100}`}
+            >
               
-              <div class="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <h3 class="font-display font-bold text-2xl text-white mb-2">{projekt.tytul}</h3>
-                <div class="inline-flex items-center text-brand-signal font-bold text-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                  Otwórz galerię
-                  <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              <div class="w-full aspect-[4/3] overflow-hidden shrink-0 border-b border-gray-100">
+                <img 
+                  src={`${projekt.zdjCieGWne.url}?auto=format&w=800&q=75`} 
+                  alt={projekt.zdjCieGWne.alt || projekt.tytul}
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                />
+              </div>
+
+              <div class="flex-1 p-8 md:p-10 flex flex-col">
+                <h3 class="font-display text-xl md:text-2xl font-bold text-brand-dark leading-tight whitespace-normal mb-6 group-hover:text-brand-signal transition-colors">
+                  {projekt.tytul}
+                </h3>
+                
+                <div class="grow"></div>
+                
+                <div class="inline-flex items-center text-brand-signal font-bold group text-sm md:text-base uppercase tracking-wider">
+                  Zobacz szczegóły
+                  <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </div>
               </div>
+
             </a>
           ))}
         </div>
@@ -194,7 +201,8 @@ const pozostaleProjekty = projekty.slice(1);
 </BaseLayout>
 
 <script>
-  // Logika Lightboxa dla Migawek z placu budowy
+  let lightboxKeydownHandler: ((e: KeyboardEvent) => void) | null = null;
+
   const initLightbox = () => {
     const galleryItems = document.querySelectorAll('.quick-gallery-image');
     const lightbox = document.getElementById('lightbox');
@@ -204,27 +212,38 @@ const pozostaleProjekty = projekty.slice(1);
     const prevBtn = document.getElementById('lightbox-prev');
     const nextBtn = document.getElementById('lightbox-next');
 
-    if (!lightbox || !lightboxImg || galleryItems.length === 0 || lightbox.dataset.loaded) return;
+    if (!lightbox || !lightboxImg || galleryItems.length === 0) return;
+    if (lightbox.dataset.loaded === 'true') return;
     lightbox.dataset.loaded = 'true';
 
-    // Zbieramy pełne URL i podpisy z atrybutów data
     const itemData = Array.from(galleryItems).map(item => ({
       fullUrl: (item as HTMLElement).dataset.full || '',
       caption: (item as HTMLElement).dataset.caption || ''
     }));
     
     let currentIndex = 0;
+    let transitionTimeout: number;
+
+    const preloadNextImage = (index: number) => {
+      const nextIdx = (index + 1) % itemData.length;
+      const preloader = new Image();
+      preloader.src = itemData[nextIdx].fullUrl;
+    };
 
     const updateImage = () => {
       lightboxImg.style.opacity = '0';
       if (lightboxCaption) lightboxCaption.style.opacity = '0';
       
-      setTimeout(() => {
+      if (transitionTimeout) clearTimeout(transitionTimeout);
+
+      transitionTimeout = window.setTimeout(() => {
         lightboxImg.src = itemData[currentIndex].fullUrl;
         if (lightboxCaption) lightboxCaption.textContent = itemData[currentIndex].caption;
         
         lightboxImg.style.opacity = '1';
         if (lightboxCaption) lightboxCaption.style.opacity = '1';
+        
+        preloadNextImage(currentIndex);
       }, 200);
     };
 
@@ -273,6 +292,7 @@ const pozostaleProjekty = projekty.slice(1);
         }, 10);
         
         document.body.style.overflow = 'hidden';
+        preloadNextImage(currentIndex);
       });
     });
 
@@ -286,14 +306,19 @@ const pozostaleProjekty = projekty.slice(1);
       }
     });
 
-    document.addEventListener('keydown', (e) => {
+    if (lightboxKeydownHandler) {
+      document.removeEventListener('keydown', lightboxKeydownHandler);
+    }
+
+    lightboxKeydownHandler = (e: KeyboardEvent) => {
       if (lightbox.classList.contains('hidden')) return;
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight' && itemData.length > 1) nextImage();
       if (e.key === 'ArrowLeft' && itemData.length > 1) prevImage();
-    });
+    };
+
+    document.addEventListener('keydown', lightboxKeydownHandler);
   };
 
-  initLightbox();
   document.addEventListener('astro:page-load', initLightbox);
 </script>
