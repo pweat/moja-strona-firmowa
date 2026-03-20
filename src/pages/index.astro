@@ -171,7 +171,7 @@ const ostatnieRealizacje: Realizacja[] = data.allRealizacjas.slice(0, 3);
             <a href={`/realizacje/${projekt.slug}`} class={`group block cursor-pointer reveal delay-${(index + 1) * 100}`}>
               <div class="relative overflow-hidden rounded-2xl mb-6 aspect-4/3 bg-gray-200 border border-white shadow-lg shadow-gray-200/50">
                 <img 
-                  src={projekt.zdjCieGWne.url} 
+                  src={`${projekt.zdjCieGWne.url}?auto=format&w=800&q=75`} 
                   alt={projekt.zdjCieGWne.alt || projekt.tytul}
                   class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
