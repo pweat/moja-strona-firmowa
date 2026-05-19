@@ -16,7 +16,7 @@ export interface Props {
 const { 
   title = "Wierttrans | Studnie Głębinowe i Pompy Ciepła", 
   description = "Profesjonalne studnie głębinowe, odwierty pod pompy ciepła i systemy uzdatniania wody. Działamy do 150 km od Kwidzyna. Rozliczamy się za efekt - 100% gwarancji wody!",
-  image = "/og-image.jpg" // Domyślne zdjęcie (zaraz Ci powiem, jak je dodać)
+  image = "/og-image.jpg"
 } = Astro.props;
 
 // 3. Generujemy aktualny, absolutny adres URL (np. https://wierttrans.pl/kontakt)
@@ -79,7 +79,11 @@ const socialImageURL = new URL(image, Astro.site || Astro.url);
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
+      // Twój istniejący Tag GA4
       gtag('config', 'G-8L8ZPJR5BZ');
+      
+      // Nowy Tag Google Ads (Kamera)
+      gtag('config', 'AW-401393432');
     </script>
   </head>
   
@@ -93,25 +97,38 @@ const socialImageURL = new URL(image, Astro.site || Astro.url);
 
     <Footer />
     
-    <script>
+    <script is:inline>
+      // SKRYPTY ASTRO I ŚLEDZENIE ZDARZEŃ
       document.addEventListener('astro:page-load', () => {
-        // Tworzymy "obserwatora"
+        // --- 1. Animacje Reveal ---
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              // Kiedy element pojawia się na ekranie, dodajemy klasę 'active'
               entry.target.classList.add('active');
-              // Przestajemy go obserwować (animacja zagra tylko raz)
               observer.unobserve(entry.target);
             }
           });
         }, { 
-          threshold: 0.1, // Uruchom, gdy widać chociaż 10% elementu
-          rootMargin: "0px 0px -50px 0px" // Uruchom odrobinę przed dolną krawędzią ekranu
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px"
         });
 
-        // Szukamy wszystkich elementów z klasą 'reveal' i każemy je obserwować
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- 2. Konwersje Google Ads (Kliknięcie w telefon) ---
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        phoneLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+              gtag('event', 'conversion', {
+                'send_to': 'AW-401393432/pRu_COaCwa8cEJiOs78B',
+                'value': 1.0,
+                'currency': 'PLN'
+              });
+              console.log('Konwersja telefoniczna wysłana do Ads!');
+            }
+          });
+        });
       });
     </script>
   </body>
