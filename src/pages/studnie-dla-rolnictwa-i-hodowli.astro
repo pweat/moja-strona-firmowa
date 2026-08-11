@@ -1,0 +1,288 @@
+---
+// src/pages/studnie-dla-rolnictwa-i-hodowli.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const phoneDisplay = '+48 737 445 243';
+const phoneHref = 'tel:+48737445243';
+
+const korzysci = [
+  {
+    tytul: 'Niezawodność i wydajność',
+    opis: 'Studnie projektowane pod ciągły pobór wody – idealne dla systemów nawadniających oraz do pojenia dużej ilości zwierząt hodowlanych.',
+    icon: `<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>`,
+  },
+  {
+    tytul: 'Kompleksowość',
+    opis: 'Odwiert, profesjonalne filtry, dobór i montaż pomp głębinowych przystosowanych do pracy ciągłej.',
+    icon: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/>`,
+  },
+  {
+    tytul: 'Formalności i prawo',
+    opis: 'Pełne wsparcie w dokumentacji, w tym operaty wodnoprawne (niezbędne przy dużych poborach dla gospodarstw i ferm).',
+    icon: `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>`,
+  },
+  {
+    tytul: 'Gwarancja i jakość',
+    opis: 'Używamy wyłącznie atestowanych rur studziennych i sprawdzonych technologii.',
+    icon: `<path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Studnie głębinowe dla rolnictwa i hodowli | Wierttrans"
+  description="Wydajne studnie głębinowe dla rolnictwa, hodowli zwierząt i przemysłu. Odwierty, pompy dużej mocy, deszczownie i pojenie. Kwidzyn + 150 km. Bezpłatna wycena."
+>
+  <main class="relative overflow-hidden bg-brand-light min-h-screen pb-16">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none z-0"></div>
+    <div class="absolute left-[-15%] top-[5%] z-0 h-80 w-80 rounded-full bg-brand-signal opacity-[0.10] blur-[100px] mix-blend-multiply pointer-events-none"></div>
+    <div class="absolute right-[-10%] top-[40%] z-0 h-96 w-96 rounded-full bg-blue-500 opacity-[0.06] blur-[120px] mix-blend-multiply pointer-events-none"></div>
+
+    <!-- HERO -->
+    <section class="relative z-10 px-4 pt-10 pb-16 max-w-3xl mx-auto">
+      <div class="reveal">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 text-brand-signal font-bold tracking-widest uppercase text-xs mb-6 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-brand-signal animate-pulse"></span>
+          Rolnictwo i hodowla
+        </span>
+
+        <h1 class="font-display text-4xl sm:text-5xl font-bold text-brand-dark leading-[1.15] mb-6 tracking-tight">
+          Wydajne studnie głębinowe dla <span class="text-brand-signal">rolnictwa i hodowli zwierząt.</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-8">
+          Kompleksowe odwierty, dobór pomp dużej mocy. Niezawodna woda do deszczowni, nawadniania pól oraz dla gospodarstw hodowlanych. Obniż koszty wody w swoim biznesie. Działamy do 150&nbsp;km od Kwidzyna.
+        </p>
+
+        <!-- Bajer: schemat studnia → zastosowania -->
+        <div class="my-8 bg-white/80 backdrop-blur-md border border-white rounded-3xl p-5 sm:p-6 shadow-lg shadow-gray-200/30" aria-hidden="true">
+          <div class="flex items-start justify-between gap-3 mb-5">
+            <div>
+              <p class="font-display font-bold text-xl sm:text-2xl text-brand-dark leading-snug">
+                Woda dla gospodarstwa.<br class="sm:hidden" /> Bez przerw.
+              </p>
+            </div>
+            <span class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-signal/10 text-brand-signal text-xs font-bold uppercase tracking-wider">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-signal flow-pulse"></span>
+              Ciągły pobór
+            </span>
+          </div>
+
+          <div class="mb-5">
+            <div class="flex items-center justify-between text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              <span>Wydajność studni</span>
+              <span class="text-blue-600">Praca ciągła</span>
+            </div>
+            <div class="h-3 rounded-full bg-gray-100 overflow-hidden border border-gray-100">
+              <div class="h-full rounded-full bg-linear-to-r from-blue-400 to-blue-600 yield-fill origin-left"></div>
+            </div>
+          </div>
+
+          <div class="flex items-end justify-between gap-2 sm:gap-4 mb-5 px-1">
+            <div class="flex flex-col items-center gap-2 flex-1">
+              <div class="relative w-12 h-20 rounded-xl bg-brand-dark/5 border border-brand-dark/10 overflow-hidden flex justify-center">
+                <div class="absolute inset-x-3 bottom-0 top-4 rounded-b-lg bg-blue-100/80 overflow-hidden">
+                  <span class="bubble bubble-1"></span>
+                  <span class="bubble bubble-2"></span>
+                  <span class="bubble bubble-3"></span>
+                  <div class="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-blue-500/70 to-blue-400/20 water-level"></div>
+                </div>
+                <div class="absolute top-1.5 w-6 h-2 rounded-sm bg-brand-dark/20"></div>
+              </div>
+              <span class="font-display font-bold text-xs text-brand-dark text-center leading-tight">Studnia</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2 pb-6 text-brand-signal shrink-0">
+              <span class="font-display font-bold text-2xl leading-none select-none" aria-hidden="true">+</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2 flex-1">
+              <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                  <!-- kabel -->
+                  <path d="M12 2v4"/>
+                  <!-- korpus pompy głębinowej -->
+                  <rect x="8" y="6" width="8" height="14" rx="2"/>
+                  <!-- stopnie / pierścienie -->
+                  <path d="M8 10h8"/><path d="M8 14h8"/><path d="M8 17h8"/>
+                  <!-- wlot wody -->
+                  <path d="M10 20v2"/><path d="M14 20v2"/>
+                </svg>
+              </div>
+              <span class="font-display font-bold text-xs text-brand-dark text-center leading-tight">Pompa<br/>głębinowa</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2 pb-6 text-brand-signal shrink-0">
+              <svg class="w-5 h-5 flow-arrow" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </div>
+
+            <div class="flex flex-col items-center gap-2 flex-1">
+              <div class="w-14 h-14 rounded-2xl bg-brand-signal/10 text-brand-signal border border-brand-signal/15 flex items-center justify-center">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>
+                </svg>
+              </div>
+              <span class="font-display font-bold text-xs text-brand-dark text-center leading-tight">Twoje<br/>gospodarstwo</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2">
+            <div class="flex flex-col items-center gap-1.5 rounded-2xl bg-brand-light border border-gray-100 px-2 py-3 text-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>
+              </svg>
+              <span class="text-[11px] sm:text-xs font-bold text-brand-dark leading-tight">Deszczownie</span>
+            </div>
+            <div class="flex flex-col items-center gap-1.5 rounded-2xl bg-brand-light border border-gray-100 px-2 py-3 text-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+              </svg>
+              <span class="text-[11px] sm:text-xs font-bold text-brand-dark leading-tight">Nawadnianie pól</span>
+            </div>
+            <div class="flex flex-col items-center gap-1.5 rounded-2xl bg-brand-light border border-gray-100 px-2 py-3 text-center">
+              <svg class="w-5 h-5 text-brand-signal" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M16 10c0 2.5-2 4-4 4s-4-1.5-4-4 2-6 4-8c2 2 4 5.5 4 8Z"/><path d="M8 14c-2.5 1-4 3-4 5.5V22"/><path d="M16 14c2.5 1 4 3 4 5.5V22"/><path d="M12 14v8"/>
+              </svg>
+              <span class="text-[11px] sm:text-xs font-bold text-brand-dark leading-tight">Pojenie zwierząt</span>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href={phoneHref}
+          class="flex items-center justify-center gap-3 w-full min-h-14 px-6 py-4 bg-brand-signal text-white rounded-2xl font-bold text-lg text-center shadow-xl shadow-brand-signal/30 hover:bg-brand-dark transition-colors duration-300"
+        >
+          <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          Zadzwoń i umów bezpłatną wycenę
+        </a>
+
+        <p class="mt-4 text-center text-sm text-gray-500 font-medium">
+          {phoneDisplay} · Bezpłatna wycena
+        </p>
+      </div>
+    </section>
+
+    <!-- KORZYŚCI -->
+    <section class="relative z-10 px-4 pb-16 max-w-3xl mx-auto">
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-brand-dark mb-8 reveal">
+        Dlaczego <span class="text-brand-signal">Wierttrans?</span>
+      </h2>
+
+      <ul class="space-y-4">
+        {korzysci.map((item, index) => (
+          <li class:list={[
+            'reveal bg-white/80 backdrop-blur-md border border-white rounded-3xl p-6 shadow-lg shadow-gray-200/30',
+            index === 0 && 'delay-100',
+            index === 1 && 'delay-200',
+            index === 2 && 'delay-300',
+          ]}>
+            <div class="flex gap-4">
+              <div class="w-12 h-12 shrink-0 bg-brand-light text-brand-signal rounded-2xl flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" set:html={item.icon} />
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-xl text-brand-dark mb-2">{item.tytul}</h3>
+                <p class="text-gray-600 leading-relaxed">{item.opis}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- O NAS / SOCIAL PROOF -->
+    <section class="relative z-10 px-4 pb-20 max-w-3xl mx-auto">
+      <div class="reveal bg-brand-dark rounded-[2rem] p-8 sm:p-10 text-center shadow-xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-linear-to-br from-brand-signal/20 to-transparent opacity-40 pointer-events-none"></div>
+        <div class="relative z-10">
+          <p class="text-brand-signal font-bold tracking-widest uppercase text-xs mb-4">O nas</p>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-white mb-5 leading-snug">
+            Doświadczenie, któremu zaufał lokalny biznes
+          </h2>
+          <p class="text-gray-300 text-base sm:text-lg leading-relaxed">
+            <strong class="text-white">Wierttrans</strong> to doświadczona firma, która zrealizowała dziesiątki udanych odwiertów w województwie pomorskim i kujawsko-pomorskim, zabezpieczając wodę dla lokalnego biznesu i rolnictwa.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .yield-fill {
+    width: 88%;
+    animation: yieldPulse 2.8s ease-in-out infinite;
+  }
+
+  .flow-pulse {
+    animation: softPulse 1.6s ease-in-out infinite;
+  }
+
+  .flow-arrow {
+    opacity: 0.75;
+    animation: arrowNudge 1.8s ease-in-out infinite;
+  }
+
+  .bubble {
+    position: absolute;
+    bottom: 8%;
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.85);
+    animation: bubbleRise 2.4s ease-in infinite;
+  }
+
+  .bubble-1 { left: 22%; animation-delay: 0s; }
+  .bubble-2 { left: 48%; width: 4px; height: 4px; animation-delay: 0.7s; }
+  .bubble-3 { left: 68%; width: 6px; height: 6px; animation-delay: 1.3s; }
+
+  .water-level {
+    animation: waterGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes yieldPulse {
+    0%, 100% { transform: scaleX(0.92); opacity: 0.9; }
+    50% { transform: scaleX(1); opacity: 1; }
+  }
+
+  @keyframes softPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+
+  @keyframes arrowNudge {
+    0%, 100% { transform: translateX(0); opacity: 0.55; }
+    50% { transform: translateX(3px); opacity: 1; }
+  }
+
+  @keyframes bubbleRise {
+    0% { transform: translateY(0); opacity: 0; }
+    15% { opacity: 0.9; }
+    100% { transform: translateY(-48px); opacity: 0; }
+  }
+
+  @keyframes waterGlow {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yield-fill,
+    .flow-pulse,
+    .flow-arrow,
+    .bubble,
+    .water-level {
+      animation: none;
+    }
+
+    .yield-fill {
+      transform: none;
+      opacity: 1;
+    }
+  }
+</style>
