@@ -1,0 +1,166 @@
+---
+// Pływający przycisk „Zadzwoń” — zawsze widoczny na całej stronie
+const phoneHref = 'tel:+48737445243';
+const phoneDisplay = '+48 737 445 243';
+---
+
+<a
+  href={phoneHref}
+  class="floating-call"
+  aria-label={`Zadzwoń: ${phoneDisplay}`}
+>
+  <span class="floating-call__pulse" aria-hidden="true"></span>
+  <span class="floating-call__pulse floating-call__pulse--delay" aria-hidden="true"></span>
+  <span class="floating-call__icon" aria-hidden="true">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+  </span>
+  <span class="floating-call__label">
+    <span class="floating-call__title">Zadzwoń</span>
+    <span class="floating-call__number">{phoneDisplay}</span>
+  </span>
+</a>
+
+<style>
+  .floating-call {
+    position: fixed;
+    z-index: 60;
+    right: 1rem;
+    bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem 0.875rem 0.875rem;
+    background: var(--color-brand-signal);
+    color: white;
+    border-radius: 9999px;
+    font-family: var(--font-display);
+    text-decoration: none;
+    box-shadow:
+      0 10px 30px -5px color-mix(in srgb, var(--color-brand-signal) 55%, transparent),
+      0 4px 12px color-mix(in srgb, var(--color-brand-dark) 20%, transparent);
+    animation: floating-call-bob 2.4s ease-in-out infinite;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+
+  .floating-call:hover {
+    background: #c92f3b;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+      0 16px 40px -6px color-mix(in srgb, var(--color-brand-signal) 65%, transparent),
+      0 6px 16px color-mix(in srgb, var(--color-brand-dark) 25%, transparent);
+    animation: none;
+  }
+
+  .floating-call:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .floating-call__pulse,
+  .floating-call__pulse--delay {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--color-brand-signal);
+    z-index: -1;
+    animation: floating-call-ring 2s ease-out infinite;
+    pointer-events: none;
+  }
+
+  .floating-call__pulse--delay {
+    animation-delay: 1s;
+  }
+
+  .floating-call__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.18);
+    flex-shrink: 0;
+    animation: floating-call-shake 3.2s ease-in-out infinite;
+  }
+
+  .floating-call:hover .floating-call__icon {
+    animation: none;
+  }
+
+  .floating-call__label {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    padding-right: 0.25rem;
+  }
+
+  .floating-call__title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+  }
+
+  .floating-call__number {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.9;
+    white-space: nowrap;
+  }
+
+  @keyframes floating-call-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes floating-call-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    100% {
+      transform: scale(1.35);
+      opacity: 0;
+    }
+  }
+
+  @keyframes floating-call-shake {
+    0%, 82%, 100% { transform: rotate(0deg); }
+    86% { transform: rotate(-12deg); }
+    90% { transform: rotate(10deg); }
+    94% { transform: rotate(-8deg); }
+    98% { transform: rotate(6deg); }
+  }
+
+  @media (max-width: 480px) {
+    .floating-call {
+      right: 0.75rem;
+      bottom: 1rem;
+      padding: 0.75rem 1rem 0.75rem 0.75rem;
+      gap: 0.6rem;
+    }
+
+    .floating-call__icon {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    .floating-call__title {
+      font-size: 0.95rem;
+    }
+
+    .floating-call__number {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floating-call,
+    .floating-call__pulse,
+    .floating-call__pulse--delay,
+    .floating-call__icon {
+      animation: none;
+    }
+  }
+</style>

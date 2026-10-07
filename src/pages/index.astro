@@ -104,32 +104,63 @@ const ostatnieRealizacje: Realizacja[] = data.allRealizacjas.slice(0, 3);
 
     <section class="py-24 relative z-10">
       <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          
+        <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+          <h2 class="font-display text-3xl md:text-5xl font-bold text-brand-dark mb-4">
+            Co chcesz <span class="text-brand-signal">zrobić?</span>
+          </h2>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Wybierz swoją sytuację — pokażemy dopasowaną ofertę.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
           <a href="/uslugi#studnie" class="reveal block group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white shadow-lg shadow-gray-200/30 hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300">
             <div class="w-14 h-14 bg-brand-light rounded-2xl flex items-center justify-center mb-6 text-brand-signal group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </div>
-            <h3 class="text-2xl font-bold font-display mb-4 text-brand-dark group-hover:text-brand-signal transition-colors">Studnie Głębinowe</h3>
-            <p class="text-gray-600 leading-relaxed">Nasza firma specjalizuje się w profesjonalnym i kompleksowym wykonywaniu ujęć wody ze studni głębinowych.</p>
+            <h3 class="text-2xl font-bold font-display mb-3 text-brand-dark group-hover:text-brand-signal transition-colors">Potrzebuję studni głębinowej</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">Nowe ujęcie wody na działce — od odwiertu po podłączenie i pompę.</p>
+            <span class="inline-flex items-center gap-2 font-bold text-brand-dark group-hover:text-brand-signal transition-colors">
+              Zobacz ofertę
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
           </a>
 
-          <a href="/uslugi#pompy" class="reveal delay-100 block group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white shadow-lg shadow-gray-200/30 hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300">
-            <div class="w-14 h-14 bg-brand-light rounded-2xl flex items-center justify-center mb-6 text-brand-signal group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </div>
-            <h3 class="text-2xl font-bold font-display mb-4 text-brand-dark group-hover:text-brand-signal transition-colors">Pompy Ciepła</h3>
-            <p class="text-gray-600 leading-relaxed">Nasza firma specjalizuje się w profesjonalnym wykonywaniu odwiertów pod sondy do gruntowych pomp ciepła, które stanowią nowoczesne źródło energii i komfortu.</p>
-          </a>
-
-          <a href="/uslugi#uzdatnianie" class="reveal delay-200 block group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white shadow-lg shadow-gray-200/30 hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300">
+          <a href="/uslugi#uzdatnianie" class="reveal delay-100 block group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white shadow-lg shadow-gray-200/30 hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300">
             <div class="w-14 h-14 bg-brand-light rounded-2xl flex items-center justify-center mb-6 text-brand-signal group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
             </div>
-            <h3 class="text-2xl font-bold font-display mb-4 text-brand-dark group-hover:text-brand-signal transition-colors">Uzdatnianie Wody</h3>
-            <p class="text-gray-600 leading-relaxed">Nasza firma oferuje kompleksowe usługi uzdatniania wody, które pomogą pozbyć się niechcianych pierwiastków z wody studziennej.</p>
+            <h3 class="text-2xl font-bold font-display mb-3 text-brand-dark group-hover:text-brand-signal transition-colors">Mam studnię — chcę uzdatnianie</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">Żelazo, mangan, twardość? Dobierzemy stację do wyników badania wody.</p>
+            <span class="inline-flex items-center gap-2 font-bold text-brand-dark group-hover:text-brand-signal transition-colors">
+              Zobacz ofertę
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
           </a>
 
+          <a href="/uslugi#pompy" class="reveal delay-200 block group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white shadow-lg shadow-gray-200/30 hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300">
+            <div class="w-14 h-14 bg-brand-light rounded-2xl flex items-center justify-center mb-6 text-brand-signal group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold font-display mb-3 text-brand-dark group-hover:text-brand-signal transition-colors">Odwiert pod pompę ciepła</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">Dolne źródło — pionowe odwierty i sondy pod gruntową pompę ciepła.</p>
+            <span class="inline-flex items-center gap-2 font-bold text-brand-dark group-hover:text-brand-signal transition-colors">
+              Zobacz ofertę
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </a>
+
+          <a href="/studnie-dla-rolnictwa-i-hodowli" class="reveal delay-300 block group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white shadow-lg shadow-gray-200/30 hover:border-brand-signal hover:shadow-brand-signal/10 transition-all duration-300">
+            <div class="w-14 h-14 bg-brand-light rounded-2xl flex items-center justify-center mb-6 text-brand-signal group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            </div>
+            <h3 class="text-2xl font-bold font-display mb-3 text-brand-dark group-hover:text-brand-signal transition-colors">Woda dla rolnictwa / hodowli</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">Wydajne studnie pod deszczownie, nawadnianie pól i pojenie zwierząt.</p>
+            <span class="inline-flex items-center gap-2 font-bold text-brand-dark group-hover:text-brand-signal transition-colors">
+              Zobacz ofertę
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </a>
         </div>
       </div>
     </section>

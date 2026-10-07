@@ -2,10 +2,59 @@
 // src/pages/kontakt.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// LOGIKA FULLSTACK: Sprawdzamy, czy formularz został przed chwilą wysłany
 const isSuccess = Astro.url.searchParams.get('success') === 'true';
+const tematParam = Astro.url.searchParams.get('temat') ?? '';
 
-// MAGIA SEO: Zaktualizowane FAQ z Twojej starej strony dla Google
+const tematy = [
+  {
+    id: 'studnia',
+    label: 'Studnia głębinowa',
+    headline: 'Wycena: studnia głębinowa',
+    lead: 'Wybrałeś studnię głębinową. Zostaw numer — oddzwonimy z darmową wyceną.',
+    placeholder: 'Np. lokalizacja działki, przybliżona głębokość, termin realizacji...',
+    subject: 'Wycena: studnia głębinowa',
+  },
+  {
+    id: 'uzdatnianie',
+    label: 'Uzdatnianie wody',
+    headline: 'Wycena: uzdatnianie wody',
+    lead: 'Wybrałeś uzdatnianie. Zostaw numer — dobierzemy stację do Twojej wody.',
+    placeholder: 'Np. masz już badanie wody? Jakie problemy (żelazo, mangan, twardość)?',
+    subject: 'Wycena: uzdatnianie wody',
+  },
+  {
+    id: 'pompa',
+    label: 'Pompa ciepła',
+    headline: 'Wycena: dolne źródło pompy ciepła',
+    lead: 'Wybrałeś odwiert pod pompę ciepła. Zostaw numer — przygotujemy wycenę.',
+    placeholder: 'Np. metraż budynku, planowana moc pompy, lokalizacja...',
+    subject: 'Wycena: dolne źródło pompy ciepła',
+  },
+  {
+    id: 'rolnictwo',
+    label: 'Rolnictwo i hodowla',
+    headline: 'Wycena: woda dla rolnictwa / hodowli',
+    lead: 'Wybrałeś ofertę dla gospodarstwa. Zostaw numer — omówimy wydajność i formalności.',
+    placeholder: 'Np. deszczownia / pojenie, przybliżone zapotrzebowanie, lokalizacja gospodarstwa...',
+    subject: 'Wycena: rolnictwo i hodowla',
+  },
+] as const;
+
+type TematId = (typeof tematy)[number]['id'];
+const validIds = tematy.map((t) => t.id);
+const selectedId: TematId | '' = validIds.includes(tematParam as TematId)
+  ? (tematParam as TematId)
+  : '';
+const selected = tematy.find((t) => t.id === selectedId);
+
+const pageTitle = selected
+  ? `${selected.headline} | Wierttrans`
+  : 'Kontakt i FAQ | Wierttrans - Darmowa Wycena';
+
+const redirectUrl = selectedId
+  ? `https://wierttrans.pl/kontakt?temat=${selectedId}&success=true`
+  : 'https://wierttrans.pl/kontakt?success=true';
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -62,7 +111,7 @@ const faqSchema = {
 };
 ---
 
-<BaseLayout title="Kontakt i FAQ | Wierttrans - Darmowa Wycena">
+<BaseLayout title={pageTitle}>
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <main class="relative overflow-hidden bg-brand-light min-h-screen pb-24">
@@ -80,11 +129,22 @@ const faqSchema = {
             <span class="w-2 h-2 rounded-full bg-brand-signal animate-pulse"></span>
             Darmowa Wycena
           </span>
-          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight text-brand-dark leading-tight">
-            Zacznijmy Twój <span class="text-brand-signal">projekt.</span>
+          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-brand-dark leading-tight">
+            {selected ? (
+              <>
+                {selected.headline.split(':')[0]}:<br />
+                <span class="text-brand-signal">{selected.headline.split(': ')[1] ?? selected.label}</span>
+              </>
+            ) : (
+              <>
+                Zacznijmy Twój <span class="text-brand-signal">projekt.</span>
+              </>
+            )}
           </h1>
-          <p class="text-xl text-gray-600 mb-12 max-w-lg leading-relaxed">
-            Masz pytania dotyczące studni głębinowej, dolnego źródła pompy ciepła lub uzdatniania wody? Jesteśmy do  Twojej dyspozycji.
+          <p class="text-xl text-gray-600 mb-10 max-w-lg leading-relaxed">
+            {selected
+              ? selected.lead
+              : 'Wybierz temat po prawej albo zostaw numer — oddzwonimy i dopasujemy wycenę do Twojej sytuacji.'}
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -133,11 +193,40 @@ const faqSchema = {
               </div>
             )}
 
-            <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+            <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6" id="contact-form">
               
               <input type="hidden" name="access_key" value="1f8d3958-76c6-41eb-b90b-82806464e30c">
               <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-              <input type="hidden" name="redirect" value="http://localhost:4321/kontakt?success=true">
+              <input type="hidden" name="redirect" value={redirectUrl}>
+              <input type="hidden" name="subject" id="form-subject" value={selected?.subject ?? 'Zapytanie ze strony Wierttrans'}>
+
+              <fieldset>
+                <legend class="block text-sm font-bold text-brand-dark mb-3 ml-1">Czego dotyczy wycena?</legend>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="temat-chips">
+                  {tematy.map((temat) => (
+                    <label
+                      class:list={[
+                        'temat-chip cursor-pointer rounded-2xl border px-4 py-3 text-sm font-bold transition-all',
+                        selectedId === temat.id
+                          ? 'border-brand-signal bg-brand-signal/10 text-brand-signal'
+                          : 'border-gray-200 bg-white/50 text-brand-dark hover:border-brand-signal/40',
+                      ]}
+                    >
+                      <input
+                        type="radio"
+                        name="temat"
+                        value={temat.id}
+                        class="sr-only"
+                        checked={selectedId === temat.id}
+                        required={temat.id === 'studnia' && !selectedId ? true : undefined}
+                        data-subject={temat.subject}
+                        data-placeholder={temat.placeholder}
+                      />
+                      {temat.label}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
 
               <div>
                 <label for="name" class="block text-sm font-bold text-brand-dark mb-2 ml-1">Imię i nazwisko</label>
@@ -151,7 +240,14 @@ const faqSchema = {
 
               <div>
                 <label for="message" class="block text-sm font-bold text-brand-dark mb-2 ml-1">Jak możemy pomóc?</label>
-                <textarea id="message" name="message" rows="4" required placeholder="Opisz krótko, czego dotyczy Twój projekt..." class="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:border-brand-signal focus:ring-4 focus:ring-brand-signal/10 outline-none transition-all bg-white/50 focus:bg-white placeholder-gray-400 font-medium resize-none"></textarea>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  required
+                  placeholder={selected?.placeholder ?? 'Opisz krótko, czego dotyczy Twój projekt...'}
+                  class="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:border-brand-signal focus:ring-4 focus:ring-brand-signal/10 outline-none transition-all bg-white/50 focus:bg-white placeholder-gray-400 font-medium resize-none"
+                ></textarea>
               </div>
 
               <button type="submit" class="w-full bg-brand-dark text-white font-bold text-lg py-5 rounded-2xl hover:bg-brand-signal transition-all duration-300 shadow-xl shadow-brand-dark/20 transform hover:-translate-y-1 mt-4 group flex justify-center items-center">
@@ -195,7 +291,6 @@ const faqSchema = {
 </BaseLayout>
 
 <script>
-  // Zabezpieczony skrypt FAQ (odporny na View Transitions)
   const initContactFAQ = () => {
     const faqButtons = document.querySelectorAll('.faq-button');
 
@@ -223,6 +318,51 @@ const faqSchema = {
     });
   };
 
+  const initTematChips = () => {
+    const chips = document.querySelectorAll<HTMLInputElement>('#temat-chips input[type="radio"]');
+    const subjectInput = document.getElementById('form-subject') as HTMLInputElement | null;
+    const message = document.getElementById('message') as HTMLTextAreaElement | null;
+    const redirectInput = document.querySelector<HTMLInputElement>('input[name="redirect"]');
+
+    chips.forEach((input) => {
+      if (input.dataset.bound) return;
+      input.dataset.bound = 'true';
+
+      input.addEventListener('change', () => {
+        chips.forEach((chip) => {
+          const label = chip.closest('label');
+          if (!label) return;
+          if (chip.checked) {
+            label.classList.add('border-brand-signal', 'bg-brand-signal/10', 'text-brand-signal');
+            label.classList.remove('border-gray-200', 'bg-white/50', 'text-brand-dark');
+          } else {
+            label.classList.remove('border-brand-signal', 'bg-brand-signal/10', 'text-brand-signal');
+            label.classList.add('border-gray-200', 'bg-white/50', 'text-brand-dark');
+          }
+        });
+
+        if (subjectInput && input.dataset.subject) {
+          subjectInput.value = input.dataset.subject;
+        }
+        if (message && input.dataset.placeholder) {
+          message.placeholder = input.dataset.placeholder;
+        }
+        if (redirectInput) {
+          redirectInput.value = `https://wierttrans.pl/kontakt?temat=${input.value}&success=true`;
+        }
+
+        const url = new URL(window.location.href);
+        url.searchParams.set('temat', input.value);
+        url.searchParams.delete('success');
+        window.history.replaceState({}, '', url.toString());
+      });
+    });
+  };
+
   initContactFAQ();
-  document.addEventListener('astro:page-load', initContactFAQ);
+  initTematChips();
+  document.addEventListener('astro:page-load', () => {
+    initContactFAQ();
+    initTematChips();
+  });
 </script>
