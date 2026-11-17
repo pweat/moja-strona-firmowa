@@ -1,0 +1,145 @@
+---
+// Baner zgody na Google Analytics i Google Ads.
+// Skrypty Google ładują się dopiero po wyborze „Akceptuję”.
+---
+
+<div
+  id="cookie-banner"
+  class="hidden fixed z-[70] left-3 right-3 bottom-28 md:left-6 md:right-auto md:bottom-6 md:max-w-md"
+  role="dialog"
+  aria-labelledby="cookie-banner-title"
+  aria-describedby="cookie-banner-text"
+>
+  <div class="bg-white border border-gray-200 rounded-3xl shadow-2xl shadow-brand-dark/15 p-5 md:p-6">
+    <h2 id="cookie-banner-title" class="font-display text-lg font-bold text-brand-dark mb-2">
+      Cookies na tej stronie
+    </h2>
+    <p id="cookie-banner-text" class="text-sm text-gray-600 leading-relaxed mb-4">
+      Google Analytics i Google Ads włączamy tylko po Twojej zgodzie. Służą do statystyki odwiedzin i pomiaru reklam, w tym kliknięcia w numer telefonu. Bez zgody strona działa tak samo.
+      <a href="/polityka-prywatnosci" class="font-semibold text-brand-dark underline decoration-brand-signal/40 underline-offset-2 hover:text-brand-signal">
+        Polityka prywatności
+      </a>
+    </p>
+    <div class="flex flex-col sm:flex-row gap-2">
+      <button
+        type="button"
+        data-cookie-accept
+        class="flex-1 bg-brand-dark text-white font-bold text-sm py-3 px-4 rounded-xl hover:bg-brand-signal transition-colors cursor-pointer"
+      >
+        Akceptuję
+      </button>
+      <button
+        type="button"
+        data-cookie-reject
+        class="flex-1 bg-white text-brand-dark font-bold text-sm py-3 px-4 rounded-xl border border-gray-200 hover:border-brand-signal hover:text-brand-signal transition-colors cursor-pointer"
+      >
+        Tylko niezbędne
+      </button>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  html.cookie-unknown #cookie-banner {
+    display: block !important;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    if (window.__wierttransCookieBoot) return;
+    window.__wierttransCookieBoot = true;
+
+    var KEY = 'wierttrans-consent';
+
+    function readChoice() {
+      try {
+        return localStorage.getItem(KEY);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function writeChoice(value) {
+      try {
+        localStorage.setItem(KEY, value);
+      } catch (e) {}
+    }
+
+    function loadAnalytics() {
+      if (window.__wierttransAnalytics) return;
+      window.__wierttransAnalytics = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-8L8ZPJR5BZ');
+      window.gtag('config', 'AW-401393432');
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8L8ZPJR5BZ';
+      document.head.appendChild(script);
+    }
+
+    function clearGoogleCookies() {
+      document.cookie.split(';').forEach(function (part) {
+        var name = part.split('=')[0].trim();
+        if (name === '_ga' || name.indexOf('_ga_') === 0 || name.indexOf('_gcl_') === 0) {
+          document.cookie = name + '=; Max-Age=0; path=/';
+          document.cookie = name + '=; Max-Age=0; path=/; domain=' + location.hostname;
+          document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname;
+        }
+      });
+    }
+
+    function banner() {
+      return document.getElementById('cookie-banner');
+    }
+
+    function hideBanner() {
+      document.documentElement.classList.remove('cookie-unknown');
+      var el = banner();
+      if (!el) return;
+      el.hidden = true;
+      el.classList.add('hidden');
+    }
+
+    function showBanner() {
+      var el = banner();
+      if (!el) return;
+      el.hidden = false;
+      el.classList.remove('hidden');
+    }
+
+    function bind(selector, handler) {
+      document.querySelectorAll(selector).forEach(function (node) {
+        if (node.dataset.cookieBound) return;
+        node.dataset.cookieBound = '1';
+        node.addEventListener('click', handler);
+      });
+    }
+
+    function init() {
+      if (readChoice() === 'all') loadAnalytics();
+
+      bind('[data-cookie-accept]', function () {
+        writeChoice('all');
+        loadAnalytics();
+        hideBanner();
+      });
+
+      bind('[data-cookie-reject]', function () {
+        writeChoice('necessary');
+        clearGoogleCookies();
+        hideBanner();
+        if (window.__wierttransAnalytics) window.location.reload();
+      });
+
+      bind('[data-cookie-settings]', function () {
+        showBanner();
+      });
+    }
+
+    init();
+    document.addEventListener('astro:page-load', init);
+  })();
+</script>

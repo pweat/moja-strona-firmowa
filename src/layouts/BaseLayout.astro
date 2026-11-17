@@ -4,6 +4,7 @@ import '../styles/global.css';
 import Header from '../components/global/Header.astro';
 import Footer from '../components/global/Footer.astro';
 import FloatingCallButton from '../components/global/FloatingCallButton.astro';
+import CookieNotice from '../components/global/CookieNotice.astro';
 import { ClientRouter } from 'astro:transitions';
 
 // 1. Zdefiniowaliśmy, jakie dane ten layout może przyjmować od innych podstron
@@ -57,6 +58,15 @@ const socialImageURL = new URL(image, Astro.site || Astro.url);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <script is:inline>
+      try {
+        var consent = localStorage.getItem('wierttrans-consent');
+        if (consent !== 'all' && consent !== 'necessary') {
+          document.documentElement.classList.add('cookie-unknown');
+        }
+      } catch (e) {}
+    </script>
     
     <style is:global>
       /* Stan początkowy (ukryty i przesunięty lekko w dół) */
@@ -76,18 +86,6 @@ const socialImageURL = new URL(image, Astro.site || Astro.url);
       .delay-300 { transition-delay: 300ms; }
     </style>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8L8ZPJR5BZ"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      // Twój istniejący Tag GA4
-      gtag('config', 'G-8L8ZPJR5BZ');
-      
-      // Nowy Tag Google Ads (Kamera)
-      gtag('config', 'AW-401393432');
-    </script>
   </head>
   
   <body class="bg-brand-light text-brand-dark font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
@@ -100,6 +98,7 @@ const socialImageURL = new URL(image, Astro.site || Astro.url);
 
     <Footer />
     <FloatingCallButton />
+    <CookieNotice />
     
     <script is:inline>
       // SKRYPTY ASTRO I ŚLEDZENIE ZDARZEŃ
